@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Created at:</b>
+  <%= @checkin.created_at %>
+</p>
+
+<p>
+  <b>Updated at:</b>
+  <%= @checkin.updated_at %>
+</p>
+
+<p>
+  <b>Project:</b>
+  <%= @checkin.project_id %>
+</p>
+
+<p>
+  <b>Text:</b>
+  <%= @checkin.text %>
+</p>
+
+
+<%= link_to 'Edit', edit_checkin_path(@checkin) %> |
+<%= link_to 'Back', checkins_path %>
