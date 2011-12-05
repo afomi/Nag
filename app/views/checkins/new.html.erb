@@ -17,16 +17,16 @@
     timeMsg();
 </script>
 
-<h2>
-  Hi Ryan,
+<p>
+  Hi Ryan,<br/>
   Sorry to bother, but what have you been up to?
-</h2>
+</p>
 <%= render 'form' %>
 
 <% if @last_checkin %>
     <hr/>
     <p>
-      At <%= @last_checkin[:created_at].strftime("%I:%M%P") rescue nil %>
+      At <%= (@last_checkin[:created_at] - 8.hours).strftime("%I:%M%P") rescue nil %>
       you said you were:
     </p>
 
