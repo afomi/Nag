@@ -44,7 +44,7 @@ class CheckinsController < ApplicationController
 
     respond_to do |format|
       if @checkin.save
-        format.html { redirect_to(@checkin, :notice => 'Checkin was successfully created.') }
+        format.html { redirect_to(new_checkin_path, :notice => 'Checkin was successfully created.') }
         format.xml  { render :xml => @checkin, :status => :created, :location => @checkin }
       else
         format.html { render :action => "new" }
