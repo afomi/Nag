@@ -1,10 +1,7 @@
 <%
    @last_checkin = Checkin.last
-   @checkins = Checkin.all.reverse
-
-   @since_last_checkin = Time.now - @last_checkin.created_at
+   @checkins = Checkin.all.reverse[0..9]
 %>
-<%= @since_last_checkin %>
 <script type="text/javascript">
 
     function timeMsg() {
@@ -16,37 +13,49 @@
 
     timeMsg();
 </script>
+<div class="row">
+  <div class="span6 columns">
+    <div class="greeting">
+      <p>
+        Hi Ryan,<br/>
+        Sorry to bother, but what have you been up to?
+      </p>
 
-<p>
-  Hi Ryan,<br/>
-  Sorry to bother, but what have you been up to?
-</p>
-<%= render 'form' %>
+      <p>
+        Sincerely, Your Lovely Nag
+      </p>
+    </div>
 
-<% if @last_checkin %>
-    <hr/>
+    <%= render 'form' %>
+  </div>
+  <div class="span10 columns">
+
+
+    <% if @last_checkin %>
+        <p>
+          At <%= (@last_checkin[:created_at] - 8.hours).strftime("%I:%M%P") rescue nil %>
+          you said you were:
+        </p>
+
+        <p class="last-checkin" style="padding: 20px; background-color: #ffffcc;">
+          <%= @last_checkin[:text] %>
+        </p>
+        <hr/>
+    <% end %>
+
+    <h1>Checkins</h1>
+
     <p>
-      At <%= (@last_checkin[:created_at] - 8.hours).strftime("%I:%M%P") rescue nil %>
-      you said you were:
+      <% @checkins.each do |checkin| %>
+          <%= (checkin.created_at - 8.hours).strftime("%I:%M%P") %>
+          <%= checkin.text %>
+          <br/>
+      <% end %>
     </p>
 
-    <p class="last-checkin" style="padding: 20px; background-color: #ffffcc;">
-      <%= @last_checkin[:text] %>
-    </p>
-<% end %>
-
-<hr/>
-<h1>Checkins</h1>
-
-<p>
-  <% @checkins.each do |checkin| %>
-      <%= (checkin.created_at - 8.hours).strftime("%I:%M%P") %>
-      <%= checkin.text %>
-      <br/>
-  <% end %>
-</p>
-
-<!--
-   FEATURE:
-   WHAT YOU SHOULD BE DOING (per Trello & Google Tasks)
--->
+    <!--
+       FEATURE:
+       WHAT YOU SHOULD BE DOING (per Trello & Google Tasks)
+    -->
+  </div>
+</div>
