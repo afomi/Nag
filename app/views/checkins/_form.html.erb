@@ -31,9 +31,10 @@
         </div>
     <% end %>
 
-    <div class="field">
-      <%= f.text_area :text %>
+    <div class="">
+      <%= f.text_area :text, :rows => 10, :class => "xlarge" -%>
     </div>
+
     <div class="actions">
       <%= f.submit :value => "Checkin" %> at <%= Time.now.strftime("%I:%M%P") %>
     </div>
