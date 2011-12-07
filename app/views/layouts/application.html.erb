@@ -3,12 +3,55 @@
 <head>
   <title>Nag</title>
   <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag :defaults %>
+  <%= javascript_include_tag 'bootstrap-dropdown' %>
   <%= csrf_meta_tag %>
 </head>
 <body>
+<div data-dropdown="dropdown" class="topbar">
+  <div class="topbar-inner">
+    <div class="container">
+      <h3><a href="#">Nag</a></h3>
+<%
+=begin
+      <ul class="nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" href="#">Dropdown</a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Secondary link</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Another link</a></li>
+          </ul>
+        </li>
+      </ul>
 
-<%= yield %>
+      <form action="" class="pull-left">
+        <input type="text" placeholder="Search">
+      </form>
+=end
+%>
+      <ul class="nav secondary-nav">
+        <li class="dropdown">
+          <a class="dropdown-toggle" href="#">Options</a>
+          <ul class="dropdown-menu">
+            <li><a href="/checkins">All Checkins</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Another link</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- /topbar-inner -->
+</div>
+
+<div class="container" style="padding-top: 50px;">
+  <%= yield %>
+</div>
 
 </body>
 </html>
