@@ -1,24 +1,25 @@
 <%
    @last_checkin = Checkin.last
-   @checkins = Checkin.all.reverse[0..9]
+   @checkins = Checkin.all.reverse[1..10]
 %>
 <script type="text/javascript">
 
-    function timeMsg() {
-        var t = setTimeout("alertMsg()", 60000 * 25);
+    function setMessage() {
+        var minutes = 25;
+        var t = setTimeout("alertMessage()", 60000 * minutes);
     }
-    function alertMsg() {
+    function alertMessage() {
         alert("Nag.");
     }
 
-    timeMsg();
+    setMessage();
 </script>
 <div class="row">
   <div class="span6 columns">
     <div class="greeting">
       <p>
         Hi Ryan,<br/>
-        Sorry to bother, but what have you been up to?
+        Pardon, but what have you been up to?
       </p>
 
       <p>
@@ -30,28 +31,30 @@
   </div>
   <div class="span10 columns">
 
+    <h1>Checkins</h1>
 
     <% if @last_checkin %>
-        <p>
-          At <%= (@last_checkin[:created_at] - 8.hours).strftime("%I:%M%P") rescue nil %>
-          you said you were:
-        </p>
+        <span class="label success">
+            <%= (@last_checkin[:created_at] - 8.hours).strftime("%I:%M%P") rescue nil %>
+        </span>
 
         <p class="last-checkin" style="padding: 20px; background-color: #ffffcc;">
           <%= @last_checkin[:text] %>
         </p>
-        <hr/>
     <% end %>
 
-    <h1>Checkins</h1>
-
-    <p>
+    <div class="checkins">
       <% @checkins.each do |checkin| %>
-          <%= (checkin.created_at - 8.hours).strftime("%I:%M%P") %>
-          <%= checkin.text %>
-          <br/>
+          <div class="checkin" style="margin:  0 0 10px 0;">
+          <span class="label success">
+            <%= (checkin.created_at - 8.hours).strftime("%I:%M%P") %>
+          </span>
+            &nbsp;
+
+            <%= checkin.text %>
+          </div>
       <% end %>
-    </p>
+    </div>
 
     <!--
        FEATURE:
