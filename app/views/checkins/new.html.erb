@@ -35,7 +35,7 @@
 
     <% if @last_checkin %>
         <span class="label success">
-            <%= (@last_checkin[:created_at] - 8.hours).strftime("%I:%M%P") rescue nil %>
+          <%= link_to (@last_checkin.created_at - 8.hours).strftime("%I:%M%P"), edit_checkin_path(@last_checkin) %>
         </span>
 
         <p class="last-checkin" style="padding: 20px; background-color: #ffffcc;">
@@ -47,7 +47,7 @@
       <% @checkins.each do |checkin| %>
           <div class="checkin" style="margin:  0 0 10px 0;">
           <span class="label success">
-            <%= (checkin.created_at - 8.hours).strftime("%I:%M%P") %>
+            <%= link_to (checkin.created_at - 8.hours).strftime("%I:%M%P"), edit_checkin_path(checkin) %>
           </span>
             &nbsp;
 
