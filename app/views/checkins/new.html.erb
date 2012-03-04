@@ -1,7 +1,3 @@
-<%
-   @last_checkin = Checkin.last
-   @checkins = Checkin.all.reverse[1..10]
-%>
 <script type="text/javascript">
 
     function setMessage() {
@@ -18,7 +14,7 @@
   <div class="span6 columns">
     <div class="greeting">
       <p>
-        Hi Ryan,<br/>
+        Hi <%= @settings[:user] %>,<br/>
         Pardon, but what have you been up to?
       </p>
 
@@ -33,16 +29,6 @@
 
     <h1>Checkins</h1>
 
-    <% if @last_checkin %>
-        <span class="label success">
-          <%= link_to (@last_checkin.created_at - 8.hours).strftime("%I:%M%P"), edit_checkin_path(@last_checkin) %>
-        </span>
-
-        <p class="last-checkin" style="padding: 20px; background-color: #ffffcc;">
-          <%= @last_checkin[:text] %>
-        </p>
-    <% end %>
-
     <div class="checkins">
       <% @checkins.each do |checkin| %>
           <div class="checkin" style="margin:  0 0 10px 0;">
@@ -51,14 +37,12 @@
           </span>
             &nbsp;
 
-            <%= checkin.text %>
+            <p class="checkin">
+              <%= checkin.text %>
+            </p>
           </div>
       <% end %>
     </div>
 
-    <!--
-       FEATURE:
-       WHAT YOU SHOULD BE DOING (per Trello & Google Tasks)
-    -->
   </div>
 </div>
