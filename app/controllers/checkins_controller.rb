@@ -1,10 +1,10 @@
 class CheckinsController < ApplicationController
 
   def index
-    @checkins = Checkin.all
+    @checkins = Checkin.hundred_latest
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.xml { render :xml => @checkins }
     end
   end
@@ -13,16 +13,18 @@ class CheckinsController < ApplicationController
     @checkin = Checkin.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html
       format.xml { render :xml => @checkin }
     end
   end
 
   def new
+    @checkins     = Checkin.all(:limit => 10, :order => "created_at DESC")
+
     @checkin = Checkin.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html
       format.xml { render :xml => @checkin }
     end
   end
@@ -89,7 +91,7 @@ class CheckinsController < ApplicationController
     payload = {
         'dateTimeFormat' => 'iso8601',
         'wikiURL'        => "http://afomi.com",
-        'wikiSection'    => "Ryan's Life' Timeline",
+        'wikiSection'    => @settings[:timeline][:wiki_section],
         "events"         => @simile_formatted_checkins
     }
     render :json => payload
