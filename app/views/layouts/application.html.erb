@@ -3,8 +3,13 @@
 <head>
   <title>Nag</title>
   <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag 'bootstrap-dropdown' %>
+  <%= javascript_include_tag 'jquery-1.7.1', 'bootstrap-dropdown'  %>
   <%= csrf_meta_tag %>
+    <script>
+        $(function() {
+            $(".checkin").first().addClass("most-recent");
+        });
+    </script>
 </head>
 <body>
 <div data-dropdown="dropdown" class="topbar">
@@ -38,9 +43,9 @@
         <li class="dropdown">
           <a class="dropdown-toggle" href="#">Options</a>
           <ul class="dropdown-menu">
-            <li><a href="/checkins">All Checkins</a></li>
+            <li><a href="/checkins/index">All Checkins</a></li>
             <li class="divider"></li>
-            <li><a href="#">Another link</a></li>
+            <li><a href="/checkins/data">Latest 100 as .json</a></li>
           </ul>
         </li>
       </ul>
