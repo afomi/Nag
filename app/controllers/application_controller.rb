@@ -11,4 +11,9 @@ class ApplicationController < ActionController::Base
         }
     }
   end
+
+  def monitor_status
+    session[:status] = params[:id] if params[:action] == "monitor_status"
+    redirect_to root_path
+  end
 end
