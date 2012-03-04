@@ -12,12 +12,14 @@ it can help me prioritize.
 
 Every 25 minutes, ask me what I've been doing since whatever I was doing since last checkin.
 
+## Technology
+* Rails 3.0.x
+* SQLite
+* JQuery
+* Twitter Bootstrap
+
 ### Backlog
 * In Trello, https://trello.com/board/personal/
-* Implement an onscreen timers
-* Flow from Trello to Google Tasks for a day (live-interface)
-* Score and gamified celebration for Google Task Completion
-* Add Geocodes and Places to Checkins
 
 #### Author
 * Ryan Wold, afomi.com
