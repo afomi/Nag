@@ -6,3 +6,28 @@ Custom Nag Styles
     padding: 20px;
     background-color: #ffffcc;
 }
+
+.active,
+.active:visited {
+    font-weight: bold;
+    color: #ff4500;
+}
+
+#context-bar {
+    display: block;
+    border: 1px solid red;
+    top-margin: 40px;
+    height: 42px;
+}
+
+.context {
+    float: left;
+    border-right: 1px solid #808080;
+    padding: 0 10px 0 0;
+    width: 18%;
+    text-align: center;
+}
+
+.last {
+    border: none;
+}

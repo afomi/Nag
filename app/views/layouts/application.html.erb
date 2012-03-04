@@ -3,42 +3,26 @@
 <head>
   <title>Nag</title>
   <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag 'jquery-1.7.1', 'bootstrap-dropdown'  %>
+  <%= javascript_include_tag 'jquery-1.7.1', 'bootstrap-dropdown' %>
   <%= csrf_meta_tag %>
-    <script>
-        $(function() {
-            $(".checkin").first().addClass("most-recent");
-        });
-    </script>
+  <script>
+      function highlight_active_status(status) {
+         $("." + status ).first().addClass("active");
+      }
+
+      $(function () {
+          $(".checkin").first().addClass("most-recent");
+          highlight_active_status("<%= session["status"] %>");
+
+      });
+  </script>
 </head>
 <body>
 <div data-dropdown="dropdown" class="topbar">
   <div class="topbar-inner">
     <div class="container">
       <h3><a href="/checkins/new">Nag</a></h3>
-<%
-=begin
-      <ul class="nav">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">Link</a></li>
-        <li><a href="#">Link</a></li>
-        <li><a href="#">Link</a></li>
-        <li class="dropdown">
-          <a class="dropdown-toggle" href="#">Dropdown</a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Secondary link</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Another link</a></li>
-          </ul>
-        </li>
-      </ul>
 
-      <form action="" class="pull-left">
-        <input type="text" placeholder="Search">
-      </form>
-=end
-%>
       <ul class="nav secondary-nav">
         <li class="dropdown">
           <a class="dropdown-toggle" href="#">Options</a>
@@ -46,12 +30,30 @@
             <li><a href="/checkins/index">All Checkins</a></li>
             <li class="divider"></li>
             <li><a href="/checkins/data">Latest 100 as .json</a></li>
+            <li><a href="http://www.wikisummaries.org/Getting_Things_Done:_The_Art_of_Stress-Free_Productivity#Chapter_5_--_Collection:_Corralling_Your_.22Stuff.22a" target="_blank">GTD Reference</a></li>
           </ul>
         </li>
       </ul>
     </div>
   </div>
   <!-- /topbar-inner -->
+</div>
+
+
+<div class="container" style="margin-top: 40px;">
+  <div class="row">
+    <div class="span6 columns">
+      &nbsp;
+    </div>
+
+    <div class="span10 columns">
+      <div class="context collect"><%= link_to "Collect", "/status/collect" %></div>
+      <div class="context process"><%= link_to "Process", "/status/process" %></div>
+      <div class="context organize"><%= link_to "Organize", "/status/organize" %></div>
+      <div class="context review"><%= link_to "Review", "/status/r" %></div>
+      <div class="context do last"><%= link_to "Do", "/status/d" %></div>
+    </div>
+  </div>
 </div>
 
 <div class="container" style="padding-top: 50px;">
