@@ -1,8 +1,10 @@
 Nag::Application.routes.draw do
 
+  resources :touchpoints
+
   get "checkins/data"
 
-  match "status/:id", :controller => "application", :action => "monitor_status", :id => "id"
+  match "status/:id", :controller => "status", :action => "edit", :id => "id"
 
   resources :checkins
 
