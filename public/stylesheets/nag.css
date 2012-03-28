@@ -31,3 +31,18 @@ Custom Nag Styles
 .last {
     border: none;
 }
+
+
+.tiny {
+    font-size: 8px;
+}
+
+habit {
+    border: 1px dotted green;
+    padding: 3px;
+}
+
+.dashboard_number_2x2 {
+    font-size: 2.5em;
+    margin: 20px 0;
+}
