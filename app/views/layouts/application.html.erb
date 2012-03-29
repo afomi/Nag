@@ -49,26 +49,80 @@
 </div>
 
 <%
-   @emails_score = 164
+   @email_score = "164 completed"
    @google_tasks_score = 17
    @trello_score = 70
 %>
 
 <div class="container" style="margin-top: 40px;">
+
   <div class="row">
-    <div class="span6 columns">
-      &nbsp;
+    <div class="span3 columns tiny">
+      <div class="altitude">50,000 feet: Life</div>
+      <div class="altitude">40,000 feet: 3-5-year Outlook</div>
+      <div class="altitude">30,000 feet: 1-2 Goals</div>
+      <div class="altitude">20,000 feet: Areas of Responsibility</div>
+      <div class="altitude">10,000 feet: Current Projects</div>
+      <div class="altitude">Runway: Current actions</div>
     </div>
+
+    <div class="span3 columns tiny">
+      <div class="altitude">
+        <div class="context collect">
+          <%= link_to "Collect", "/status/collect", :title => "Collect everything you can think of." %>
+        </div>
+        <p style="display:none;">Collect everything you can think of.</p>
+      </div>
+      <div class="altitude">
+        <div class="context process">
+          <%= link_to "Process", "/status/process", :title => "Decide what to do with each item in the Inbox." %>
+          <p style="display:none;">Decide what to do with each item in the Inbox.</p>
+        </div>
+      </div>
+      <div class="altitude">
+        <div class="context organize">
+          <%= link_to "Organize", "/status/organize", :title => "Organize items into the right buckets." %>
+          <p style="display:none;">Organize by project and priority. Work from Calendar Tasks, then Trello.</p>
+        </div>
+      </div>
+      <div class="altitude">
+        <div class="context review">
+          <%= link_to "Review", "/status/review", :title => "Review every day and once a week to keep the system up-to-date." %>
+          <p style="display:none;">Review to regain context and focus, about once a week.</p>
+        </div>
+      </div>
+      <div class="altitude">
+        <div class="context do last">
+          <%= link_to "Do", "/status/do", :title => "Do and make the best choices." %>
+          <p style="display: none;">Get to work.</p>
+        </div>
+      </div>
+    </div>
+
     <div class="span2 columns">
-      &nbsp;
+      <table>
+        <thead>
+        <th>Rows</th>
+        <th>GMail</th>
+        <th>Afomi Mail</th>
+        <th>MQ Mail</th>
+        <th>Google Tasks</th>
+        <th>Trello</th>
+        </thead>
+        <tr>
+          <td>Unread</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
     </div>
     <div class="span2 columns">
       Stats, baby!
     </div>
     <div class="span2 columns">
       e-mails Processed
-      <div class="dashboard_number_2x2">
-        <%= @emails_score %>
+      <div class="1dashboard_number_2x2">
+        <%= @email_score %>
       </div>
     </div>
     <div class="span2 columns">
@@ -82,42 +136,8 @@
       <div class="dashboard_number_2x2">
         <%= @trello_score %>
       </div>
-    </div>
-  </div>
 
-  <hr/>
 
-  <div class="row">
-    <div class="span6 columns tiny">
-      <div class="altitude">50,000 + feet: Life</div>
-      <div class="altitude">40,000 feet: Three- to five-year visions</div>
-      <div class="altitude">30,000 feet: One-to two-year goals</div>
-      <div class="altitude">20,000 feet: Areas of responsibility</div>
-      <div class="altitude">10,000 feet: Current projects</div>
-      <div class="altitude">Runway: Current actions</div>
-    </div>
-
-    <div class="span10 columns">
-      <div class="context collect">
-        <%= link_to "Collect", "/status/collect", :title => "Collect everything you can think of." %>
-        <p>Collect everything you can think of.</p>
-      </div>
-      <div class="context process">
-        <%= link_to "Process", "/status/process", :title => "Decide what to do with each item in the Inbox." %>
-        <p>Decide what to do with each item in the Inbox.</p>
-      </div>
-      <div class="context organize">
-        <%= link_to "Organize", "/status/organize", :title => "Organize items into the right buckets." %>
-        <p>Organize by project and priority. Work from Calendar Tasks, then Trello.</p>
-      </div>
-      <div class="context review">
-        <%= link_to "Review", "/status/review", :title => "Review every day and once a week to keep the system up-to-date." %>
-        <p>Review to regain context and focus, about once a week.</p>
-      </div>
-      <div class="context do last">
-        <%= link_to "Do", "/status/do", :title => "Do and make the best choices." %>
-        <p>Get to work.</p>
-      </div>
     </div>
   </div>
 
