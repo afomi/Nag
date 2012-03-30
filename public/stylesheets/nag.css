@@ -41,3 +41,11 @@ habit {
     font-size: 2.5em;
     margin: 20px 0;
 }
+
+table td {
+    text-align: center;
+}
+
+.debug {
+    display: none;
+}
