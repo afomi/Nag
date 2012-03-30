@@ -1,17 +1,23 @@
-<%= form_for(@touchpoint) do |f| %>
-  <% if @touchpoint.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@touchpoint.errors.count, "error") %> prohibited this touchpoint from being saved:</h2>
+<%= form_for(@touchpoint, :remote => true) do |f| %>
+    <% if @touchpoint.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@touchpoint.errors.count, "error") %> prohibited this touchpoint from being saved:</h2>
 
-      <ul>
-      <% @touchpoint.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+          <ul>
+            <% @touchpoint.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    Description: <%= f.text_field :description %><br />
+    Key:   <%= f.text_field :key %><br/>
+    Value: <%= f.text_field :value %><br/>
+    Points: <%= f.text_field :points %> %>Í<br/>
+    Checkin ID: <%= f.text_field :checkin_id %> %>Í<br/>
+
+    <div class="actions">
+      <%= f.submit %>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>

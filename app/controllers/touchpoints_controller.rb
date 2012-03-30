@@ -1,12 +1,19 @@
 class TouchpointsController < ApplicationController
   # GET /touchpoints
   # GET /touchpoints.xml
+
+  before_filter :log_session
+
+  def log_session
+    puts request.inspect
+  end
+
   def index
     @touchpoints = Touchpoint.all
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @touchpoints }
+      format.xml { render :xml => @touchpoints }
     end
   end
 
@@ -17,7 +24,7 @@ class TouchpointsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @touchpoint }
+      format.xml { render :xml => @touchpoint }
     end
   end
 
@@ -28,7 +35,7 @@ class TouchpointsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @touchpoint }
+      format.xml { render :xml => @touchpoint }
     end
   end
 
@@ -41,14 +48,17 @@ class TouchpointsController < ApplicationController
   # POST /touchpoints.xml
   def create
     @touchpoint = Touchpoint.new(params[:touchpoint])
+    puts @touchpoint.inspect
 
     respond_to do |format|
       if @touchpoint.save
         format.html { redirect_to(@touchpoint, :notice => 'Touchpoint was successfully created.') }
-        format.xml  { render :xml => @touchpoint, :status => :created, :location => @touchpoint }
+        format.xml { render :xml => @touchpoint, :status => :created, :location => @touchpoint }
+        format.json { render :json => @touchpoint, :status => :created, :location => @touchpoint }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @touchpoint.errors, :status => :unprocessable_entity }
+        format.xml { render :xml => @touchpoint.errors, :status => :unprocessable_entity }
+        format.json { render :json => @touchpoint.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -61,10 +71,10 @@ class TouchpointsController < ApplicationController
     respond_to do |format|
       if @touchpoint.update_attributes(params[:touchpoint])
         format.html { redirect_to(@touchpoint, :notice => 'Touchpoint was successfully updated.') }
-        format.xml  { head :ok }
+        format.xml { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @touchpoint.errors, :status => :unprocessable_entity }
+        format.xml { render :xml => @touchpoint.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -77,7 +87,7 @@ class TouchpointsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(touchpoints_url) }
-      format.xml  { head :ok }
+      format.xml { head :ok }
     end
   end
 end
