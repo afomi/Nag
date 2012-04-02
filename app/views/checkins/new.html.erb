@@ -37,7 +37,7 @@
       <% @checkins.each do |checkin| %>
         <div class="checkin" style="margin:  0 0 10px 0;">
           <span class="label success">
-            <%= link_to (checkin.created_at - 8.hours).strftime("%I:%M%P"), edit_checkin_path(checkin) %>
+            <%= link_to (checkin.created_at - 7.hours).strftime("%I:%M%P"), edit_checkin_path(checkin) %>
           </span>
           &nbsp;
 
