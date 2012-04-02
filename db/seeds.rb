@@ -6,7 +6,16 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
-Checkin.create!(
+@checkin = Checkin.create!(
     :text       => "Here's a check-in",
     :project_id => 0
+)
+
+@touchpoint = Touchpoint.create!(
+    :key         => "trello",
+    :value       => "complete",
+    :description => "description",
+    :project_id  => 0,
+    :checkin_id  => @checkin.id
+
 )
