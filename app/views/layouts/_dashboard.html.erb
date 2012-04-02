@@ -1,7 +1,45 @@
 <%
+   @gmail = {
+           "unread"    => "0",
+           "follow_up" => 0,
+           "count"     => "-",
+           "today"     => "-",
+           "this_week" => "-",
+   }
+
+   @afomi_gmail = {
+           "unread"    => "0",
+           "follow_up" => 0,
+           "count"     => "-",
+           "today"     => "-",
+           "this_week" => "-",
+   }
+
+   @mq_gmail = {
+           "unread"    => "0",
+           "follow_up" => 0,
+           "count"     => "-",
+           "today"     => "-",
+           "this_week" => "-",
+   }
+
+   @trello = {
+           :count      => "51",
+           "today"     => "-",
+           "this_week" => "-",
+   }
+
    @email_score = "164 completed"
-   @google_tasks_score = 17
-   @trello_score = 70
+
+   @google_tasks = {
+           :length => 22
+   }
+
+   @phonesnaps = {
+           "count"     => "-",
+           "today"     => "-",
+           "this_week" => "-",
+   }
 %>
 
 <div class="row">
@@ -52,24 +90,26 @@
       <thead>
       <th>&nbsp;</th>
       <th>GMail</th>
-      <th>Afomi Mail</th>
+      <th>Afomi<br/>Mail</th>
       <th>MQ Mail</th>
-      <th>Google Tasks</th>
+      <th>Google<br/>Tasks</th>
       <th>Trello</th>
+      <th>Phonesnaps</th>
       </thead>
       <tr>
         <td>Unread/Todo</td>
-        <td>0</td>
+        <td><%= @gmail["unread"] %></td>
         <td>2</td>
         <td>891</td>
-        <td>60</td>
-        <td>132</td>
+        <td><%= @google_tasks[:length] %></td>
+        <td><%= @trello[:count] %></td>
+        <td><%= @phonesnaps["count"] %></td>
       </tr>
       <tr>
         <td>Follow-Up</td>
-        <td>17</td>
-        <td>2</td>
-        <td>0</td>
+        <td><%= @gmail["follow_up"] %></td>
+        <td><%= @afomi_gmail["follow_up"] %></td>
+        <td><%= @mq_gmail["follow_up"] %></td>
       </tr>
       <tr>
         <td>Drafts</td>
@@ -90,6 +130,7 @@
         <td>35</td>
         <td>4</td>
         <td>2</td>
+        <td><%= @phonesnaps["today"] %></td>
       </tr>
       <tr style="background-color: #fff885;">
         <td>Read This Week</td>
@@ -98,6 +139,7 @@
         <td></td>
         <td></td>
         <td></td>
+        <td><%= @phonesnaps["this_week"] %></td>
       </tr>
     </table>
   </div>
