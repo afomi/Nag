@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  load Rails.root + 'lib/afomi_extras.rb'
+
   before_filter :basic_settings
 
   def basic_settings
@@ -12,8 +14,4 @@ class ApplicationController < ActionController::Base
     }
   end
 
-  def monitor_status
-    session[:status] = params[:id] if params[:action] == "monitor_status"
-    redirect_to root_path
-  end
 end
