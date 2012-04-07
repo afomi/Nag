@@ -27,7 +27,6 @@ Custom Nag Styles
     border: none;
 }
 
-
 .tiny {
     font-size: 8px;
 }
@@ -48,4 +47,19 @@ table td {
 
 .debug {
     display: none;
+}
+
+#trello_hover {
+    display: none;
+    background-color: #ddd;
+    border: 1px solid green;
+    float: left;
+    padding: 10px;
+    position: absolute;
+    width: 150px;
+    text-align: left;
+}
+
+.hover {
+    display: inline;
 }

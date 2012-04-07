@@ -26,20 +26,29 @@
            :week_count  => 80,
    }
 
+   @trello_hash = {
+           "Personal"      => 52, # manual counts from Trello
+           "MQ"            => 59,
+           "DMap"          => 30,
+           "Greenline"     => 17,
+           "Opentecture"   => 6,
+           "Shopping List" => 5
+   }
+
    @trello = {
-           :count       => "114",
-           :today_count => "7",
+           :count       => @trello_hash.collect { |k, v| v }.sum,
+           :today_count => "7", # placeholders
            :week_count  => 22
    }
 
    @google_tasks = {
-           :count       => 60,
+           :count       => 21, # manual counts
            :today_count => 3,
            :week_count  => 22
    }
 
    @phonesnaps = {
-           :count       => "0",
+           :count       => "0", # manual counts (in Dropbox)
            :today_count => "1",
            :week_count  => 6,
    }
@@ -105,7 +114,12 @@
         <td><%= @afomi_gmail[:unread] %></td>
         <td><%= @mq_gmail[:unread] %></td>
         <td><%= @google_tasks[:count] %></td>
-        <td><%= @trello[:count] %></td>
+        <td><%= link_to @trello[:count], "/somewhere", :id => "trello_total" %>
+          <div id="trello_hover">
+            Trello Details:
+            <%= raw @trello_hash.to_html_list %>
+          </div>
+        </td>
         <td><%= @phonesnaps[:count] %></td>
       </tr>
       <tr>
