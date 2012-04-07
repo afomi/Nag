@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  load Rails.root + 'lib/afomi_extras.rb'
+
   before_filter :basic_settings
 
   def basic_settings
@@ -11,4 +13,5 @@ class ApplicationController < ActionController::Base
         }
     }
   end
+
 end

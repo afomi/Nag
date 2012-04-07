@@ -6,3 +6,60 @@ Custom Nag Styles
     padding: 20px;
     background-color: #ffffcc;
 }
+
+.active,
+.active:visited {
+    font-weight: bold;
+    color: #ff4500;
+}
+
+#context-bar {
+    display: block;
+    border: 1px solid red;
+    top-margin: 40px;
+    height: 42px;
+}
+
+.context {
+}
+
+.last {
+    border: none;
+}
+
+.tiny {
+    font-size: 8px;
+}
+
+habit {
+    border: 1px dotted green;
+    padding: 3px;
+}
+
+.dashboard_number_2x2 {
+    font-size: 2.5em;
+    margin: 20px 0;
+}
+
+table td {
+    text-align: center;
+}
+
+.debug {
+    display: none;
+}
+
+#trello_hover {
+    display: none;
+    background-color: #ddd;
+    border: 1px solid green;
+    float: left;
+    padding: 10px;
+    position: absolute;
+    width: 150px;
+    text-align: left;
+}
+
+.hover {
+    display: inline;
+}

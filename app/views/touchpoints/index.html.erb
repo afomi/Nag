@@ -1,0 +1,85 @@
+<h1>Listing Touchpoints</h1>
+
+<script>
+    function touch_gmail() {
+        console.log("posting to touchpoints");
+        $.post("/touchpoints",
+                {
+                    touchpoint:{
+                        "checkin_id":890,
+                        "description":"this is only a test",
+                        "points":1000,
+                        "key":"gmail",
+                        "value":"checkoff_emails"
+                    }
+                },
+                function (data) {
+                    $('.result').html(data);
+                });
+    }
+
+    function touch_google_task() {
+        console.log("posting to touchpoints");
+        $.post("/touchpoints",
+                {
+                    touchpoint:{
+                        "checkin_id":890,
+                        "description":"this is only a test",
+                        "points":1000,
+                        "key":"google_tasks",
+                        "value":"complete"
+                    }
+                },
+                function (data) {
+                    $('.result').html(data);
+                });
+    }
+
+    function touch_trello() {
+        console.log("posting to touchpoints");
+        $.post("/touchpoints",
+                {
+                    touchpoint:{
+                        checkin_id:890,
+                        description:"this is only a test",
+                        points:1000,
+                        key:"trello",
+                        value:"complete"
+                    }
+                },
+                function (data) {
+                    $('.result').html(data);
+                });
+    }
+</script>
+
+<div class="debug">
+  <a href="javascript:touch_gmail();">Testing GMail Checkpoint</a><br/>
+  <a href="javascript:touch_google_task();">Testing Google Task Checkpoint</a><br/>
+  <a href="javascript:touch_trello();">Testing Trello Checkpoint</a>
+
+  <div class="result">Results Goes Here (Ajax)</div>
+</div>
+
+<table>
+  <tr>
+    <% Touchpoint.columns.each do |column| %>
+        <th><%= column.name %></th>
+    <% end %>
+  </tr>
+
+  <% @touchpoints.each do |touchpoint| %>
+      <% Touchpoint.columns.each do |column| %>
+          <td><%= touchpoint.send(column.name) %></td>
+      <% end %>
+      <td><%#= debug touchpoint %></td>
+      <td><%= link_to 'Show', touchpoint %></td>
+      <td><%= link_to 'Edit', edit_touchpoint_path(touchpoint) %></td>
+      <td><%= link_to 'Destroy', touchpoint, :confirm => 'Are you sure?', :method => :delete %></td>
+      </tr>
+  <% end %>
+</table>
+
+<br/>
+
+<%= link_to 'New Touchpoint', new_touchpoint_path %>

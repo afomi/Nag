@@ -1,0 +1,164 @@
+<%
+   @gmail = {
+           :unread      => 0,
+           :drafts      => 15,
+           :follow_up   => 10,
+           :starred     => 190,
+           :today_count => "15",
+           :week_count  => "70",
+   }
+
+   @afomi_gmail = {
+           :unread      => 0,
+           :drafts      => 0,
+           :follow_up   => 7,
+           :starred     => 0,
+           :today_count => 9,
+           :week_count  => 40,
+   }
+
+   @mq_gmail = {
+           :unread      => 999,
+           :drafts      => 0,
+           :follow_up   => 0,
+           :starred     => 0,
+           :today_count => 8,
+           :week_count  => 80,
+   }
+
+   @trello_hash = {
+           "Personal"      => 52, # manual counts from Trello
+           "MQ"            => 59,
+           "DMap"          => 30,
+           "Greenline"     => 17,
+           "Opentecture"   => 6,
+           "Shopping List" => 5
+   }
+
+   @trello = {
+           :count       => @trello_hash.collect { |k, v| v }.sum,
+           :today_count => "7", # placeholders
+           :week_count  => 22
+   }
+
+   @google_tasks = {
+           :count       => 21, # manual counts
+           :today_count => 3,
+           :week_count  => 22
+   }
+
+   @phonesnaps = {
+           :count       => "0", # manual counts (in Dropbox)
+           :today_count => "1",
+           :week_count  => 6,
+   }
+%>
+
+<div class="row">
+  <div class="span3 columns tiny">
+    <div class="altitude">50,000 feet: Life</div>
+    <div class="altitude">40,000 feet: 3-5-year Outlook</div>
+    <div class="altitude">30,000 feet: 1-2 Goals</div>
+    <div class="altitude">20,000 feet: Areas of Responsibility</div>
+    <div class="altitude">10,000 feet: Current Projects</div>
+    <div class="altitude">Runway: Current actions</div>
+  </div>
+
+  <div class="span3 columns tiny">
+    <div class="altitude">
+      <div class="context collect">
+        <%= link_to "Collect", "/status/collect", :title => "Collect everything you can think of." %>
+      </div>
+      <p style="display:none;">Collect everything you can think of.</p>
+    </div>
+    <div class="altitude">
+      <div class="context process">
+        <%= link_to "Process", "/status/process", :title => "Decide what to do with each item in the Inbox." %>
+        <p style="display:none;">Decide what to do with each item in the Inbox.</p>
+      </div>
+    </div>
+    <div class="altitude">
+      <div class="context organize">
+        <%= link_to "Organize", "/status/organize", :title => "Organize items into the right buckets." %>
+        <p style="display:none;">Organize by project and priority. Work from Calendar Tasks, then Trello.</p>
+      </div>
+    </div>
+    <div class="altitude">
+      <div class="context review">
+        <%= link_to "Review", "/status/review", :title => "Review every day and once a week to keep the system up-to-date." %>
+        <p style="display:none;">Review to regain context and focus, about once a week.</p>
+      </div>
+    </div>
+    <div class="altitude">
+      <div class="context do last">
+        <%= link_to "Do", "/status/do", :title => "Do and make the best choices." %>
+        <p style="display: none;">Get to work.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="span10 columns">
+    <table class="condensed-table">
+      <thead>
+      <th>&nbsp;</th>
+      <th>GMail</th>
+      <th>Afomi<br/>Mail</th>
+      <th>MQ Mail</th>
+      <th>Google<br/>Tasks</th>
+      <th>Trello</th>
+      <th>Phonesnaps</th>
+      </thead>
+      <tr>
+        <td>Unread/Todo</td>
+        <td><%= @gmail[:unread] %></td>
+        <td><%= @afomi_gmail[:unread] %></td>
+        <td><%= @mq_gmail[:unread] %></td>
+        <td><%= @google_tasks[:count] %></td>
+        <td><%= link_to @trello[:count], "/somewhere", :id => "trello_total" %>
+          <div id="trello_hover">
+            Trello Details:
+            <%= raw @trello_hash.to_html_list %>
+          </div>
+        </td>
+        <td><%= @phonesnaps[:count] %></td>
+      </tr>
+      <tr>
+        <td>Follow-Up</td>
+        <td><%= @gmail[:follow_up] %></td>
+        <td><%= @afomi_gmail[:follow_up] %></td>
+        <td><%= @mq_gmail[:follow_up] %></td>
+      </tr>
+      <tr>
+        <td>Drafts</td>
+        <td><%= @gmail[:drafts] %></td>
+        <td><%= @afomi_gmail[:drafts] %></td>
+        <td><%= @mq_gmail[:drafts] %></td>
+      </tr>
+      <tr>
+        <td>Starred</td>
+        <td><%= @gmail[:starred] %></td>
+        <td><%= @afomi_gmail[:starred] %></td>
+        <td><%= @mq_gmail[:starred] %></td>
+      </tr>
+      <tr style="background-color: #88ff7d;">
+        <td>Read/Done Today</td>
+        <td><%= @gmail[:today_count] %></td>
+        <td><%= @afomi_gmail[:today_count] %></td>
+        <td><%= @mq_gmail[:today_count] %></td>
+        <td><%= @google_tasks[:today_count] %></td>
+        <td><%= @trello[:today_count] %></td>
+        <td><%= @phonesnaps[:today_count] %></td>
+      </tr>
+      <tr style="background-color: #fff885;">
+        <td>Read This Week</td>
+        <td><%= @gmail[:week_count] %></td>
+        <td><%= @afomi_gmail[:week_count] %></td>
+        <td><%= @mq_gmail[:week_count] %></td>
+        <td><%= @google_tasks[:week_count] %></td>
+        <td><%= @trello[:week_count] %></td>
+        <td><%= @phonesnaps[:week_count] %></td>
+      </tr>
+    </table>
+  </div>
+
+</div>

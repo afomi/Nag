@@ -10,13 +10,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111204204551) do
+ActiveRecord::Schema.define(:version => 20120328054407) do
 
   create_table "checkins", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "project_id"
     t.text     "text"
+  end
+
+  create_table "touchpoints", :force => true do |t|
+    t.string   "key"
+    t.text     "value"
+    t.integer  "points"
+    t.string   "description"
+    t.integer  "checkin_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

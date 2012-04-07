@@ -1,10 +1,11 @@
-<h1>Listing checkins</h1>
+<h1>Listing Checkins</h1>
 
 <table>
   <tr>
     <th>Created at</th>
     <th>Updated at</th>
-    <th>Project</th>
+    <th>Project ID</th>
+    <th>Touchpoint ID</th>
     <th>Text</th>
     <th></th>
     <th></th>
@@ -16,6 +17,7 @@
     <td><%= checkin.created_at %></td>
     <td><%= checkin.updated_at %></td>
     <td><%= checkin.project_id %></td>
+    <td><%= checkin.touchpoint_id %></td>
     <td><%= checkin.text %></td>
     <td><%= link_to 'Show', checkin %></td>
     <td><%= link_to 'Edit', edit_checkin_path(checkin) %></td>
