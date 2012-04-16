@@ -1,37 +1,26 @@
 <%
-   @gmail = {
-           :unread      => 0,
-           :drafts      => 15,
-           :follow_up   => 10,
-           :starred     => 190,
-           :today_count => "15",
-           :week_count  => "70",
-   }
+   gmail_keys = Stat.where(:app => "gmail")
+   @gmail = {}
+   gmail_keys.each do |k|
+     @gmail[k.key.to_sym] = k.value
+   end
 
-   @afomi_gmail = {
-           :unread      => 0,
-           :drafts      => 0,
-           :follow_up   => 7,
-           :starred     => 0,
-           :today_count => 9,
-           :week_count  => 40,
-   }
+   afomi_gmail_keys = Stat.where(:app => "afomi_gmail")
+   @afomi_gmail = {}
+   afomi_gmail_keys.each do |k|
+     @afomi_gmail[k.key.to_sym] = k.value
+   end
 
-   @mq_gmail = {
-           :unread      => 999,
-           :drafts      => 0,
-           :follow_up   => 0,
-           :starred     => 0,
-           :today_count => 8,
-           :week_count  => 80,
-   }
+   mq_gmail_keys = Stat.where(:app => "mq_gmail")
+   @mq_gmail = {}
+   mq_gmail_keys.each do |k|
+     @mq_gmail[k.key.to_sym] = k.value
+   end
 
    @trello_hash = {
-           "Personal"      => 52, # manual counts from Trello
+           "Personal"      => 51, # manual counts from Trello
            "MQ"            => 59,
            "DMap"          => 30,
-           "Greenline"     => 17,
-           "Opentecture"   => 6,
            "Shopping List" => 5
    }
 
@@ -108,6 +97,7 @@
       <th>Trello</th>
       <th>Phonesnaps</th>
       </thead>
+
       <tr>
         <td>Unread/Todo</td>
         <td><%= @gmail[:unread] %></td>
@@ -124,7 +114,9 @@
       </tr>
       <tr>
         <td>Follow-Up</td>
-        <td><%= @gmail[:follow_up] %></td>
+        <td>
+          <div class="edit" id="gmail[follow_up]"><%= @gmail[:follow_up] %></div>
+        </td>
         <td><%= @afomi_gmail[:follow_up] %></td>
         <td><%= @mq_gmail[:follow_up] %></td>
       </tr>

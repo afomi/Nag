@@ -7,4 +7,23 @@ class StatusController < ApplicationController
     redirect_to root_url, :session => session
   end
 
+  def update
+    valid_attributes = ["app", "key", "value"]
+    query = params.delete_if { |k, v| !valid_attributes.include?(k) }
+
+    @stat = Stat.where(query)
+    if @stat.length > 0
+      @stat
+    else
+      stat = query
+      @stat = Stat.create!(stat)
+    end
+
+    respond_to do |format|
+      format.html { redirect_to root_path }
+      format.json
+    end
+
+  end
+
 end
