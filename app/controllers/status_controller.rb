@@ -9,13 +9,13 @@ class StatusController < ApplicationController
 
   def update
     valid_attributes = ["app", "key", "value"]
-    query = params.delete_if { |k, v| !valid_attributes.include?(k) }
+    stat = params.delete_if { |k, v| !valid_attributes.include?(k) }
+    query = stat.dup.delete_if { |k, v| k == "value" }
 
-    @stat = Stat.where(query)
-    if @stat.length > 0
-      @stat
+    @stat = Stat.where(query).first
+    if @stat
+      @stat.update_attribute("value", stat["value"])
     else
-      stat = query
       @stat = Stat.create!(stat)
     end
 
