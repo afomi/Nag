@@ -17,15 +17,14 @@
      @mq_gmail[k.key.to_sym] = k.value
    end
 
-   @trello_hash = {
-           "Personal"      => 51, # manual counts from Trello
-           "MQ"            => 59,
-           "DMap"          => 30,
-           "Shopping List" => 5
-   }
+   trello_keys = Stat.where(:app => "trello_board")
+   @trello_boards = {}
+   trello_keys.each do |k|
+     @trello_boards[k.key.to_sym] = k.value
+   end
 
    @trello = {
-           :count       => @trello_hash.collect { |k, v| v }.sum,
+           :count       => @trello_boards.collect { |k, v| v.to_i }.sum,
            :today_count => "7", # placeholders
            :week_count  => 22
    }
@@ -107,7 +106,7 @@
         <td><%= link_to @trello[:count], "/somewhere", :id => "trello_total" %>
           <div id="trello_hover">
             Trello Details:
-            <%= raw @trello_hash.to_html_list %>
+            <%= raw @trello_boards.to_html_list %>
           </div>
         </td>
         <td><%= @phonesnaps[:count] %></td>
@@ -119,6 +118,14 @@
         </td>
         <td><%= @afomi_gmail[:follow_up] %></td>
         <td><%= @mq_gmail[:follow_up] %></td>
+      </tr>
+      <tr>
+        <td>Awaiting</td>
+        <td>
+          <div class="edit" id="gmail[awaiting]"><%= @gmail[:awaiting] %></div>
+        </td>
+        <td><%= @afomi_gmail[:awaiting] %></td>
+        <td><%= @mq_gmail[:awaiting] %></td>
       </tr>
       <tr>
         <td>Drafts</td>
