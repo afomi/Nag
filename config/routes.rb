@@ -1,5 +1,7 @@
 Nag::Application.routes.draw do
 
+  resources :habits
+
   match "help", :to => "status#help"
   get "checkins/data"
 

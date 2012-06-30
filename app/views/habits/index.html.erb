@@ -1,0 +1,23 @@
+<h1>Listing habits</h1>
+
+<table>
+  <tr>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @habits.each do |habit| %>
+  <tr>
+    <td><%= habit.description %></td>
+    <td><%= link_to 'Show', habit %></td>
+    <td><%= link_to 'Edit', edit_habit_path(habit) %></td>
+    <td><%= link_to 'Destroy', habit, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Habit', new_habit_path %>
