@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120416044227) do
+ActiveRecord::Schema.define(:version => 20120630170008) do
 
   create_table "checkins", :force => true do |t|
     t.datetime "created_at"
@@ -20,12 +20,18 @@ ActiveRecord::Schema.define(:version => 20120416044227) do
     t.integer  "touchpoint_id", :default => 0
   end
 
+  create_table "habits", :force => true do |t|
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "stats", :force => true do |t|
-    t.string   "app"
     t.string   "key"
     t.text     "value"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "app",        :limit => 36
   end
 
   create_table "touchpoints", :force => true do |t|
