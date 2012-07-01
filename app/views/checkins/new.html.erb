@@ -1,15 +1,3 @@
-<script type="text/javascript">
-
-  function setMessage() {
-    var minutes = 25;
-    var t = setTimeout("alertMessage()", 60000 * minutes);
-  }
-  function alertMessage() {
-    alert("Nag.");
-  }
-
-  setMessage();
-</script>
 <div class="row">
 
   <%= render :partial => "layouts/dashboard" %>
@@ -28,6 +16,18 @@
     </div>
 
     <%= render 'form' %>
+
+    <hr/>
+
+    <div class="btn-group">
+      <a class="btn habit" href="javascript:void(0)">Habits.</a>
+    </div>
+
+
+    <% @habits.each do |habit| %>
+      <%= link_to habit.description, "/habits/#{habit.id}", :class => "insertText" %>
+      <br/>
+    <% end %>
   </div>
   <div class="span10 columns">
 

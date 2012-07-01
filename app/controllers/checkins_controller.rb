@@ -19,7 +19,8 @@ class CheckinsController < ApplicationController
   end
 
   def new
-    @checkins     = Checkin.all(:limit => 10, :order => "created_at DESC")
+    @checkins = Checkin.all(:limit => 10, :order => "created_at DESC")
+    @habits   = Habit.all
 
     @checkin = Checkin.new
 
@@ -79,20 +80,20 @@ class CheckinsController < ApplicationController
 
     @checkins.each do |checkin|
       @simile_formatted_checkins << {
-          :title         => DateTime.parse(checkin["created_at"].to_s).strftime("%b %d at %I:%M %P"),
-          :start         => checkin["created_at"],
-          :description   => checkin["text"],
-          :image         => "",
-          :link          => "",
-          :durationEvent => false
+        :title         => DateTime.parse(checkin["created_at"].to_s).strftime("%b %d at %I:%M %P"),
+        :start         => checkin["created_at"],
+        :description   => checkin["text"],
+        :image         => "",
+        :link          => "",
+        :durationEvent => false
       }
     end
 
     payload = {
-        'dateTimeFormat' => 'iso8601',
-        'wikiURL'        => "http://afomi.com",
-        'wikiSection'    => @settings[:timeline][:wiki_section],
-        "events"         => @simile_formatted_checkins
+      'dateTimeFormat' => 'iso8601',
+      'wikiURL'        => "http://afomi.com",
+      'wikiSection'    => @settings[:timeline][:wiki_section],
+      "events"         => @simile_formatted_checkins
     }
     render :json => payload
   end
