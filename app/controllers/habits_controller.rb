@@ -1,6 +1,5 @@
 class HabitsController < ApplicationController
-  # GET /habits
-  # GET /habits.xml
+
   def index
     @habits = Habit.all
 
@@ -10,8 +9,6 @@ class HabitsController < ApplicationController
     end
   end
 
-  # GET /habits/1
-  # GET /habits/1.xml
   def show
     @habit = Habit.find(params[:id])
 
@@ -21,8 +18,6 @@ class HabitsController < ApplicationController
     end
   end
 
-  # GET /habits/new
-  # GET /habits/new.xml
   def new
     @habit = Habit.new
 
@@ -32,13 +27,10 @@ class HabitsController < ApplicationController
     end
   end
 
-  # GET /habits/1/edit
   def edit
     @habit = Habit.find(params[:id])
   end
 
-  # POST /habits
-  # POST /habits.xml
   def create
     @habit = Habit.new(params[:habit])
 
@@ -53,8 +45,6 @@ class HabitsController < ApplicationController
     end
   end
 
-  # PUT /habits/1
-  # PUT /habits/1.xml
   def update
     @habit = Habit.find(params[:id])
 
@@ -69,8 +59,6 @@ class HabitsController < ApplicationController
     end
   end
 
-  # DELETE /habits/1
-  # DELETE /habits/1.xml
   def destroy
     @habit = Habit.find(params[:id])
     @habit.destroy
