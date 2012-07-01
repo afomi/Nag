@@ -1,41 +1,39 @@
 <%= form_for(@checkin) do |f| %>
-    <% if @checkin.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@checkin.errors.count, "error") %> prohibited this checkin from being saved:</h2>
+  <% if @checkin.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@checkin.errors.count, "error") %> prohibited this checkin from being saved:</h2>
 
-          <ul>
-            <% @checkin.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-            <% end %>
-          </ul>
-        </div>
-    <% end %>
+      <ul>
+        <% @checkin.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-    <% if action_name == "edit" %>
-        <div class="field">
-          <%= f.label :created_at %>
-          <br/>
-          <%= f.datetime_select :created_at %>
-        </div>
-
-        <div class="field">
-          <%= f.label :updated_at %>
-          <br/>
-          <%= f.datetime_select :updated_at %>
-        </div>
-
-        <div class="field">
-          <%= f.label :project_id %>
-          <br/>
-          <%= f.text_field :project_id %>
-        </div>
-    <% end %>
-
-    <div class="">
-      <%= f.text_area :text, :rows => 10, :class => "xlarge" -%>
+  <% if action_name == "edit" %>
+    <div class="field">
+      <%= f.label :created_at %>
+      <br/>
+      <%= f.datetime_select :created_at %>
     </div>
 
-    <div class="actions">
-      <%= f.submit :value => "Checkin" %> at <%= Time.now.strftime("%I:%M%P") %>
+    <div class="field">
+      <%= f.label :updated_at %>
+      <br/>
+      <%= f.datetime_select :updated_at %>
     </div>
+
+    <div class="field ">
+      <%= f.label :project_id %>
+      <br/>
+      <%= f.text_field :project_id %>
+    </div>
+  <% end %>
+
+  <div class="">
+    <%= f.text_area :text, :rows => 10, :class => "xlarge" -%>
+    <br /><br />
+    <%= f.submit :value => "Checkin", :class => "btn" %> at <span id="timer"></span>
+  </div>
 <% end %>
