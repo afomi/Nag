@@ -3,13 +3,17 @@
 <head>
   <title>Nag</title>
   <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag 'jquery-1.7.1', 'jquery.jeditable.mini', 'bootstrap-dropdown', 'application' %>
+  <%= javascript_include_tag 'jquery-1.7.1', 'jquery.jeditable.mini',
+                             'jquery.textSelection-1.0', 'Selection-1.0',
+                             'bootstrap-dropdown',
+                             "strftime-1.3",
+                             'application' %>
   <%= csrf_meta_tag %>
   <script>
     // on page load
     $(function () {
       $(".checkin").first().addClass("most-recent");
-      highlight_active_status("<%= session["status"] %>");
+      highlight_active_status("<%= session["status"] || "collect" %>");
     });
   </script>
 
