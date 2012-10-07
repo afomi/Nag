@@ -5,3 +5,6 @@ tmp/
 .idea
 Gemfile.lock
 .DS_Store
+
+.powrc
+.rvmrc
