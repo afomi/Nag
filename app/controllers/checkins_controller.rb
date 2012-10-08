@@ -1,5 +1,7 @@
 class CheckinsController < ApplicationController
 
+  before_filter :public, :except => :just_login
+
   def index
     @checkins = Checkin.hundred_latest
 
@@ -7,6 +9,20 @@ class CheckinsController < ApplicationController
       format.html
       format.xml { render :xml => @checkins }
     end
+  end
+
+  def public
+    render "public" unless session[:ryan]
+  end
+
+  def just_login
+    session["ryan"] = true
+    redirect_to root_path
+  end
+
+  def logout
+    session.clear
+    redirect_to root_path
   end
 
   def show
