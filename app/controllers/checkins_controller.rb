@@ -36,7 +36,6 @@ class CheckinsController < ApplicationController
 
   def new
     @checkins = Checkin.all(:limit => 10, :order => "created_at DESC")
-    @habits   = Habit.all
 
     @checkin = Checkin.new
 

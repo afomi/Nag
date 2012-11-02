@@ -7,10 +7,10 @@ class ApplicationController < ActionController::Base
 
   def basic_settings
     @settings = {
-        :user     => "Ryan",
-        :timeline => {
-            :wiki_section => "Ryan's Checkin Timeline'"
-        }
+      :user     => "Ryan",
+      :timeline => {
+        :wiki_section => "Ryan's Checkin Timeline'"
+      }
     }
   end
 
