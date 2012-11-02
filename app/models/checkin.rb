@@ -8,6 +8,10 @@ class Checkin < ActiveRecord::Base
     Checkin.all(:limit => 100, :order => "created_at DESC")
   end
 
+  def created_at
+    # adjust timezone
+    super - 7.hours if super
+  end
 
   private
 
