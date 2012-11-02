@@ -46,7 +46,6 @@ habit {
 }
 
 table td {
-    text-align: center;
 }
 
 .debug {
@@ -66,4 +65,9 @@ table td {
 
 .hover {
     display: inline;
+}
+
+.checkin a {
+    color: white;
+    font-weight: normal;
 }

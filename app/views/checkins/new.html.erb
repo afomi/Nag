@@ -61,12 +61,14 @@
   <div class="span6 columns">
     <%= render 'layouts/dashboard' %>
 
+    <hr>
+
     <h1>Checkins</h1>
 
     <div class="checkins">
       <% @checkins.each do |checkin| %>
         <div class="checkin" style="margin:  0 0 10px 0;">
-          <span class="label success">
+          <span class="label label-success">
             <%= link_to (checkin.created_at - 7.hours).strftime("%I:%M%P"), edit_checkin_path(checkin) %>
           </span>
           &nbsp;
