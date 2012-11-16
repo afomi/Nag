@@ -4,6 +4,10 @@ class Checkin < ActiveRecord::Base
 
   before_save :check_for_habits
 
+  def self.today
+    Checkin.where(:created_at => Date.today).order("created_at")
+  end
+
   def self.hundred_latest
     Checkin.all(:limit => 100, :order => "created_at DESC")
   end
