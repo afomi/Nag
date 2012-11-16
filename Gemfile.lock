@@ -22,8 +22,6 @@ GEM
       activesupport (= 3.2.2)
       arel (~> 3.0.2)
       tzinfo (~> 0.3.29)
-    activerecord-mysql2-adapter (0.0.3)
-      mysql2
     activeresource (3.2.2)
       activemodel (= 3.2.2)
       activesupport (= 3.2.2)
@@ -88,7 +86,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord-mysql2-adapter
   mysql2
   nokogiri
   rails (= 3.2.2)
