@@ -1,51 +1,110 @@
 <div class="row">
-  <div class="span6">
+  <div class="span12">
+    <div style="text-align: right;">
+      <%= link_to "Overview", "#", :id => "show_helper" %>
+    </div>
+  </div>
+</div>
 
-    <div class="row">
-      <div class="span3 columns">
-        <div class="altitude">50,000 feet: Life</div>
-        <div class="altitude">40,000 feet: 3-5-year Outlook</div>
-        <div class="altitude">30,000 feet: 1-2 Goals</div>
-        <div class="altitude">20,000 feet: Areas of Responsibility</div>
-        <div class="altitude">10,000 feet: Current Projects</div>
-        <div class="altitude">Runway: Current actions</div>
-
-        <hr>
-
-        <%= link_to "?", "#", :class => "help" %>
-        <div class="altitude">
-          <div class="context collect">
-            <%= link_to "Collect", "/status/collect", :title => "Collect everything you can think of." %>
-          </div>
-          <p class="hint">Collect everything you can think of.</p>
-        </div>
-        <div class="altitude">
-          <div class="context process">
-            <%= link_to "Process", "/status/process", :title => "Decide what to do with each item in the Inbox." %>
-            <p class="hint">Decide what to do with each item in the Inbox.</p>
-          </div>
-        </div>
-        <div class="altitude">
-          <div class="context organize">
-            <%= link_to "Organize", "/status/organize", :title => "Organize items into the right buckets." %>
-            <p class="hint">Organize by project and priority. Work from Calendar Tasks, then Trello.</p>
-          </div>
-        </div>
-        <div class="altitude">
-          <div class="context review">
-            <%= link_to "Review", "/status/review", :title => "Review every day and once a week to keep the system up-to-date." %>
-            <p class="hint">Review to regain context and focus, about once a week.</p>
-          </div>
-        </div>
-        <div class="altitude">
-          <div class="context do last">
-            <%= link_to "Do", "/status/do", :title => "Do and make the best choices." %>
-            <p class="hint">Get to work.</p>
-          </div>
-        </div>
+<div id="extras" class="row hide">
+  <div class="span3">
+    <div class="altitude">50,000 feet: Life</div>
+    <div class="altitude">40,000 feet: 3-5-year Outlook</div>
+    <div class="altitude">30,000 feet: 1-2 Goals</div>
+    <div class="altitude">20,000 feet: Areas of Responsibility</div>
+    <div class="altitude">10,000 feet: Current Projects</div>
+    <div class="altitude">Runway: Current actions</div>
+  </div>
+  <div class="span3">
+    <%= link_to "?", "#", :class => "help" %>
+    <div class="altitude">
+      <div class="context collect">
+        <%= link_to "Collect", "/status/collect", :title => "Collect everything you can think of." %>
       </div>
+      <p class="hint">Collect everything you can think of.</p>
+    </div>
+    <div class="altitude">
+      <div class="context process">
+        <%= link_to "Process", "/status/process", :title => "Decide what to do with each item in the Inbox." %>
+        <p class="hint">Decide what to do with each item in the Inbox.</p>
+      </div>
+    </div>
+    <div class="altitude">
+      <div class="context organize">
+        <%= link_to "Organize", "/status/organize", :title => "Organize items into the right buckets." %>
+        <p class="hint">Organize by project and priority. Work from Calendar Tasks, then Trello.</p>
+      </div>
+    </div>
+    <div class="altitude">
+      <div class="context review">
+        <%= link_to "Review", "/status/review", :title => "Review every day and once a week to keep the system up-to-date." %>
+        <p class="hint">Review to regain context and focus, about once a week.</p>
+      </div>
+    </div>
+    <div class="altitude">
+      <div class="context do last">
+        <%= link_to "Do", "/status/do", :title => "Do and make the best choices." %>
+        <p class="hint">Get to work.</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span12">
+      <hr/>
+    </div>
+  </div>
+</div>
 
-      <div class="span3 columns">
+<div id="daily_reminders" class="row">
+  <div class="span6">
+    <div>
+      Daily Reminders
+      <br>
+
+      <!--
+      TODO:
+      allow these buttons to be pressed once per day.
+      reset at midnight local time
+      show a positive affirmation of completion
+      -->
+
+      <p>
+        <button class="btn" type="button">Mindsweep</button>
+        Mindsweep - get everything out of your head!
+        <br><br>
+        <button class="btn" type="button">Empty Inbox</button>
+        Inbox to empty - Process everything from the inbox.
+      </p>
+
+      <!--
+      TODO:
+      Is it Actionable? What is the desired outcome?
+      Is the Trello task status 'fully actionable'?
+      -->
+    </div>
+
+    <div>
+      Next Actions?<br>
+      Waiting For?<br>
+      Always up-to-date. ALWAYS FRESH
+    </div>
+
+  </div>
+  <div class="span6">
+    <%= render 'layouts/dashboard' %>
+  </div>
+
+  <div class="row">
+    <div class="span12">
+      <hr>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span6">
+    <div class="row">
+      <div class="span6">
         <div class="greeting">
           <p>
             Hi <%= @settings[:user] %>,<br/>
@@ -56,37 +115,99 @@
             Sincerely, Your Lovely Nag
           </p>
         </div>
-
-        <%= render 'form' %>
       </div>
     </div>
 
-    <hr>
+    <div class="row">
+      <%= render 'form' %>
+      <!--
+      TODO:
+      consider entity matching after-the-fact, or otherwise
+      always trying to link a check-in to its native source:
+
+      ie: Github, Foursquare, Facebook, Nag, Yelp, Mint, etc.
+      -->
+    </div>
 
     <div class="row">
-      <%= render 'layouts/dashboard' %>
+      <div class="span12">
+        <hr>
+      </div>
     </div>
-  </div>
 
-  <div class="span6 columns">
-    <h1>Checkins</h1>
+    <div class="row">
+      <div class="span6">
+        <h1>Checkins</h1>
 
-    <div class="checkins">
-      <% last_checkin = nil %>
-      <% @checkins.each do |checkin| %>
-        <%= content_tag(:h5, checkin.created_at.strftime("%B %d")) unless (checkin.created_at.day == (last_checkin.day rescue nil)) %>
-        <div class="checkin" style="margin:  0 0 10px 0;">
-          <span class="label label-success">
-            <%= link_to checkin.created_at.strftime("%I:%M%P"), edit_checkin_path(checkin) %>
-          </span>
-          &nbsp;
+        <div class="checkins">
+          <% last_checkin = nil %>
+          <% Checkin.today.each do |checkin| %>
+            <%= content_tag(:h5, checkin.created_at.strftime("%B %d")) unless (checkin.created_at.day == (last_checkin.day rescue nil)) %>
+            <div class="checkin" style="margin:  0 0 10px 0;">
+              <span class="label label-success">
+                <%= link_to checkin.created_at.strftime("%I:%M%P"), edit_checkin_path(checkin) %>
+              </span>
+              &nbsp;
 
-          <p class="checkin">
-            <%= raw checkin.text %>
-          </p>
+              <p class="checkin">
+                <%= raw checkin.text %>
+              </p>
+            </div>
+            <% last_checkin = checkin.created_at %>
+          <% end %>
         </div>
-        <% last_checkin = checkin.created_at %>
-      <% end %>
+
+        <hr/>
+
+        <div class="checkins">
+          <% last_checkin = nil %>
+          <% @checkins.each do |checkin| %>
+            <%= content_tag(:h5, checkin.created_at.strftime("%B %d")) unless (checkin.created_at.day == (last_checkin.day rescue nil)) %>
+            <div class="checkin" style="margin:  0 0 10px 0;">
+              <span class="label label-success">
+                <%= link_to checkin.created_at.strftime("%I:%M%P"), edit_checkin_path(checkin) %>
+              </span>
+              &nbsp;
+
+              <p class="checkin">
+                <%= raw checkin.text %>
+              </p>
+            </div>
+            <% last_checkin = checkin.created_at %>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
+
+  <div class="span3">Calendar</div>
+
+  <div class="span3">Trello and other tasks
+
+    <br>
+    <% 80.times do %>
+      <span class="label label-success"><%= rand(98234898).to_s %></span>
+    <% end %>
+
+    <!--
+       Consider dragging and dropping these items
+    -->
+    <hr>
+    All my files<br>
+    Dropbox and Local Files
+  </div>
+
 </div>
+
+<script>
+  $(function () {
+    $("#show_helper").click(function () {
+      if ($(this).parent("li").hasClass("active") === true) {
+        $(this).parent("li").removeClass("active");
+      } else {
+        $(this).parent("li").addClass("active");
+      }
+      $("#extras").toggle();
+    });
+  });
+</script>
