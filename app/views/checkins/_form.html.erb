@@ -1,41 +1,51 @@
-<%= form_for(@checkin) do |f| %>
-  <div class="span3">
-    <% if @checkin.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@checkin.errors.count, "error") %> prohibited this checkin from being saved:</h2>
+<div class="row-fluid">
+  <%= form_for(@checkin) do |f| %>
+    <div class="span12">
+      <% if @checkin.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@checkin.errors.count, "error") %> prohibited this checkin from being saved:</h2>
 
-        <ul>
-          <% @checkin.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
+          <ul>
+            <% @checkin.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
-    <%= f.text_area :text, :rows => 10, :class => "xlarge" -%>
+      <%= f.text_area :text, :rows => 10, :class => "xlarge" -%>
 
-    <% if action_name == "edit" %>
-      <div class="field">
-        <%= f.label :created_at %>
-        <br/>
-        <%= f.datetime_select :created_at %>
-      </div>
+      <br>
 
-      <div class="field">
-        <%= f.label :updated_at %>
-        <br/>
-        <%= f.datetime_select :updated_at %>
-      </div>
+      <%= f.submit :value => "Checkin", :class => "btn btn-primary" %> at <span id="timer"></span>
 
-      <div class="field ">
-        <%= f.label :project_id %>
-        <br/>
-        <%= f.text_field :project_id %>
-      </div>
-    <% end %>
-  </div>
+      <% if action_name == "edit" %>
+        <div class="field">
+          <%= f.label :created_at %>
+          <br/>
+          <%= f.datetime_select :created_at %>
+        </div>
 
-  <div class="span3">
-    <%= f.submit :value => "Checkin", :class => "btn btn-primary" %> at <span id="timer"></span>
-  </div>
-<% end %>
+        <div class="field">
+          <%= f.label :updated_at %>
+          <br/>
+          <%= f.datetime_select :updated_at %>
+        </div>
+
+        <div class="field ">
+          <%= f.label :project_id %>
+          <br/>
+          <%= f.text_field :project_id %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <!--
+  TODO:
+  consider entity matching after-the-fact, or otherwise
+  always trying to link a check-in to its native source:
+
+  ie: Github, Foursquare, Facebook, Nag, Yelp, Mint, etc.
+  -->
+</div>

@@ -1,12 +1,4 @@
-<div class="row">
-  <div class="span12">
-    <div style="text-align: right;">
-      <%= link_to "Overview", "#", :id => "show_helper" %>
-    </div>
-  </div>
-</div>
-
-<div id="extras" class="row hide">
+<div id="extras" class="row-fluid hide">
   <div class="span3">
     <div class="altitude">50,000 feet: Life</div>
     <div class="altitude">40,000 feet: 3-5-year Outlook</div>
@@ -48,63 +40,22 @@
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="span6">
+    <%= render 'layouts/dashboard' %>
+  </div>
+  <div class="row-fluid">
     <div class="span12">
       <hr/>
     </div>
   </div>
 </div>
 
-<div id="daily_reminders" class="row">
-  <div class="span6">
-    <div>
-      Daily Reminders
-      <br>
+<div class="row-fluid">
+  <div class="span3">
+    <div class="row-fluid">
+      <div class="span12">
+        <h2>Checkins</h2>
 
-      <!--
-      TODO:
-      allow these buttons to be pressed once per day.
-      reset at midnight local time
-      show a positive affirmation of completion
-      -->
-
-      <p>
-        <button class="btn" type="button">Mindsweep</button>
-        Mindsweep - get everything out of your head!
-        <br><br>
-        <button class="btn" type="button">Empty Inbox</button>
-        Inbox to empty - Process everything from the inbox.
-      </p>
-
-      <!--
-      TODO:
-      Is it Actionable? What is the desired outcome?
-      Is the Trello task status 'fully actionable'?
-      -->
-    </div>
-
-    <div>
-      Next Actions?<br>
-      Waiting For?<br>
-      Always up-to-date. ALWAYS FRESH
-    </div>
-
-  </div>
-  <div class="span6">
-    <%= render 'layouts/dashboard' %>
-  </div>
-
-  <div class="row">
-    <div class="span12">
-      <hr>
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="span6">
-    <div class="row">
-      <div class="span6">
         <div class="greeting">
           <p>
             Hi <%= @settings[:user] %>,<br/>
@@ -115,61 +66,31 @@
             Sincerely, Your Lovely Nag
           </p>
         </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <%= render 'form' %>
-      <!--
-      TODO:
-      consider entity matching after-the-fact, or otherwise
-      always trying to link a check-in to its native source:
-
-      ie: Github, Foursquare, Facebook, Nag, Yelp, Mint, etc.
-      -->
-    </div>
-
-    <div class="row">
-      <div class="span12">
-        <hr>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="span6">
-        <h1>Checkins</h1>
-
         <div class="checkins">
           <% last_checkin = nil %>
           <% Checkin.today.each do |checkin| %>
-            <%= content_tag(:h5, checkin.created_at.strftime("%B %d")) unless (checkin.created_at.day == (last_checkin.day rescue nil)) %>
+            <%= content_tag(:h5, checkin.created_at.strftime("%B %d"), :style => "text-transform:uppercase;") unless (checkin.created_at.day == (last_checkin.day rescue nil)) %>
             <div class="checkin" style="margin:  0 0 10px 0;">
-              <span class="label label-success">
-                <%= link_to checkin.created_at.strftime("%I:%M%P"), edit_checkin_path(checkin) %>
-              </span>
-              &nbsp;
-
               <p class="checkin">
+                <span class="label label-success">
+                  <%= link_to checkin.created_at.strftime("%I:%M%P"), edit_checkin_path(checkin) %>
+                </span>
                 <%= raw checkin.text %>
               </p>
             </div>
             <% last_checkin = checkin.created_at %>
           <% end %>
         </div>
-
-        <hr/>
-
+        <%= render 'form' %>
         <div class="checkins">
           <% last_checkin = nil %>
-          <% @checkins.each do |checkin| %>
-            <%= content_tag(:h5, checkin.created_at.strftime("%B %d")) unless (checkin.created_at.day == (last_checkin.day rescue nil)) %>
+          <% @latest_checkins.each do |checkin| %>
+            <%= content_tag(:h5, checkin.created_at.strftime("%B %d"), :style => "text-transform:uppercase;") unless (checkin.created_at.day == (last_checkin.day rescue nil)) %>
             <div class="checkin" style="margin:  0 0 10px 0;">
-              <span class="label label-success">
-                <%= link_to checkin.created_at.strftime("%I:%M%P"), edit_checkin_path(checkin) %>
-              </span>
-              &nbsp;
-
               <p class="checkin">
+                <span class="label label-success">
+                  <%= link_to checkin.created_at.strftime("%I:%M%P"), edit_checkin_path(checkin) %>
+                </span>
                 <%= raw checkin.text %>
               </p>
             </div>
@@ -180,23 +101,71 @@
     </div>
   </div>
 
-  <div class="span3">Calendar</div>
+  <div class="span3">
+    <div>
+      <h2>Daily Processing</h2>
+      <br>
 
-  <div class="span3">Trello and other tasks
+      <!--
+      TODO:
+      allow these buttons to be pressed once per day.
+      reset at midnight local time
+      show a positive affirmation of completion
+      -->
 
-    <br>
+      <div>
+        <button class="btn btn-primary" type="button">Mindsweep</button>
+        <p class="hide">
+          <br>
+          Mindsweep - get everything out of your head!
+        </p>
+        <br><br>
+
+        <button class="btn" type="button">Empty Inbox</button>
+        <p class="hide">
+          <br>
+          Inbox to empty - Process everything from the inbox.
+        </p>
+      </div>
+
+      <!--
+      TODO:
+      Is it Actionable? What is the desired outcome?
+      Is the Trello task status 'fully actionable'?
+      -->
+    </div>
+
+    <div>
+      <h4>Awaiting</h4>
+      Next Actions?
+      Always up-to-date. ALWAYS FRESH
+    </div>
+  </div>
+
+  <div class="span3">
+    <h2>Trello + tasks</h2>
+
+    <% labels = ["", "label-success", "label-warning", "label-important", "label-info", "label-inverse"] %>
+
     <% 80.times do %>
-      <span class="label label-success"><%= rand(98234898).to_s %></span>
+      <span class="label <%= labels.sample %>"><%= rand(98234898).to_s %></span>
     <% end %>
 
     <!--
        Consider dragging and dropping these items
     -->
-    <hr>
-    All my files<br>
-    Dropbox and Local Files
+    <h5>Other References</h5>
+    File folders, Dropbox and local files
   </div>
 
+  <div class="span3">
+    <h2><%= Time.now.strftime("%a - %b %d, %Y") %></h2>
+
+    <h3>Our Calendar</h3>
+    <%= render :partial => "partials/calendar", :locals => { :entries => @shared_entries } %>
+    <h3>Ryan's Calendar</h3>
+    <%= render :partial => "partials/calendar", :locals => { :entries => @ryan_entries } %>
+  </div>
 </div>
 
 <script>

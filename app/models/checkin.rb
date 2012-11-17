@@ -5,16 +5,17 @@ class Checkin < ActiveRecord::Base
   before_save :check_for_habits
 
   def self.today
-    Checkin.where(:created_at => Date.today).order("created_at")
+    Checkin.where("created_at >= ?", Date.today).order("created_at ASC")
   end
 
-  def self.hundred_latest
-    Checkin.all(:limit => 100, :order => "created_at DESC")
+  def self.latest(n = 10)
+    Checkin.where("created_at < ?", Date.today).order("created_at DESC").limit(n)
   end
 
   def created_at
     # adjust timezone
-    super - 7.hours if super
+    #super - 7.hours if super
+    super - 8.hours if super # for daylight savings
   end
 
   private

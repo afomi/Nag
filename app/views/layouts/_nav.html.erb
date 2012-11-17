@@ -1,30 +1,25 @@
-<div class="container">
-  <div class="navbar navbar-static-top">
-    <div class="navbar-inner">
-      <a class="brand" href="#">Nag</a>
-      <ul class="nav">
-
+<div class="navbar navbar-static-top">
+  <div class="navbar-inner">
+    <a class="brand" href="#">Nag</a>
+    <% if logged_in? %>
+      <ul class="nav pull-right">
+        <li><%= link_to "Overview", "#", :id => "show_helper" %></li>
+        <li class="divider-vertical"></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Options <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="/checkins">All Checkins</a></li>
+            <li><a href="/touchpoints">All Touchpoints</a></li>
+            <li><a href="/checkins/data">Latest 100 as .json</a></li>
+            <li class="divider"></li>
+            <li><a href="/help">Help</a></li>
+            <li>
+              <a href="http://www.wikisummaries.org/Getting_Things_Done:_The_Art_of_Stress-Free_Productivity#Chapter_5_--_Collection:_Corralling_Your_.22Stuff.22a" target="_blank">GTD
+                Reference</a>
+            </li>
+          </ul>
+        </li>
       </ul>
-      <% if logged_in? %>
-        <ul class="nav pull-right">
-          <li><%= link_to "Overview", "#", :id => "show_helper" %></li>
-          <li class="divider-vertical"></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Options <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a href="/checkins">All Checkins</a></li>
-              <li><a href="/touchpoints">All Touchpoints</a></li>
-              <li><a href="/checkins/data">Latest 100 as .json</a></li>
-              <li class="divider"></li>
-              <li><a href="/help">Help</a></li>
-              <li>
-                <a href="http://www.wikisummaries.org/Getting_Things_Done:_The_Art_of_Stress-Free_Productivity#Chapter_5_--_Collection:_Corralling_Your_.22Stuff.22a" target="_blank">GTD
-                  Reference</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      <% end %>
-    </div>
+    <% end %>
   </div>
 </div>

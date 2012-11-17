@@ -35,9 +35,53 @@ class CheckinsController < ApplicationController
   end
 
   def new
-    @checkins = Checkin.all(:limit => 10, :order => "created_at DESC")
+    @todays_checkins = Checkin.today
 
-    @checkin = Checkin.new
+    @latest_checkins = Checkin.latest
+    @checkin         = Checkin.new
+
+    require 'open-uri'
+
+    gparams = "?start-min=#{(DateTime.now).to_s}"
+    gparams << "&start-max=#{(DateTime.now + 6.months).to_s}"
+    gparams << "&orderby=starttime"
+
+    gcal_base_url = "https://www.google.com/calendar/feeds/"
+
+    @refresh = (params[:refresh] ||= false)
+
+    @url  = "#{gcal_base_url}andria.williams%40gmail.com/private-66e0674cd72ec792be8548356a87808d/full#{gparams}"
+    name  = "andria_cal.xml"
+    @url2 = "#{gcal_base_url}ryanjwold%40gmail.com/private-66728cb6cd63fbe9de7b7550c9bb24c9/full#{gparams}"
+    name2 = "ryan_cal.xml"
+
+    if File.exist?("#{Rails.root}/tmp/#{name}") and (Time.now - 2.days < File.ctime(name)) and !@refresh
+      logger.debug("Fetching local #{name}")
+      @calendar_xml = File.open("#{Rails.root}/tmp/#{name}", "r").read
+    else
+      logger.debug("Fetching #{@url}")
+      @calendar_xml = open(@url).read
+      File.open("#{Rails.root}/tmp/#{name}", "w") do |f|
+        f << @calendar_xml
+      end
+    end
+
+    if File.exist?("#{Rails.root}/tmp/#{name2}") and (Time.now - 2.days < File.ctime(name2)) and !@refresh
+      logger.debug("Fetching local #{name2}")
+      @calendar_xml2 = File.open("#{Rails.root}/tmp/#{name2}", "r").read
+    else
+      logger.debug("Fetching #{@url2}")
+      @calendar_xml2 = open(@url2).read
+      File.open("#{Rails.root}/tmp/#{name2}", "w") do |f|
+        f << @calendar_xml2
+      end
+    end
+
+    doc             = Nokogiri::XML(@calendar_xml)
+    @shared_entries = doc.css("entry").sort_by { |e| DateTime.parse(e.xpath("gd:when")[0]["startTime"]) }[0..9]
+
+    doc2          = Nokogiri::XML(@calendar_xml2)
+    @ryan_entries = doc2.css("entry").sort_by { |e| t = e.xpath("gd:when"); t2 = t[0]; t3 = t2["startTime"] rescue Time.now.to_s; DateTime.parse(t3) }[0..9]
 
     respond_to do |format|
       format.html
@@ -112,4 +156,5 @@ class CheckinsController < ApplicationController
     }
     render :json => payload
   end
+
 end
