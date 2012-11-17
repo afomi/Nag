@@ -55,7 +55,7 @@ class CheckinsController < ApplicationController
     @url2 = "#{gcal_base_url}ryanjwold%40gmail.com/private-66728cb6cd63fbe9de7b7550c9bb24c9/full#{gparams}"
     name2 = "ryan_cal.xml"
 
-    if File.exist?("#{Rails.root}/tmp/#{name}") and (Time.now - 2.days < File.ctime(name)) and !@refresh
+    if File.exist?("#{Rails.root}/tmp/#{name}") and (Time.now - 2.days < File.ctime("#{Rails.root}/tmp/#{name}")) and !@refresh
       logger.debug("Fetching local #{name}")
       @calendar_xml = File.open("#{Rails.root}/tmp/#{name}", "r").read
     else
@@ -66,7 +66,7 @@ class CheckinsController < ApplicationController
       end
     end
 
-    if File.exist?("#{Rails.root}/tmp/#{name2}") and (Time.now - 2.days < File.ctime(name2)) and !@refresh
+    if File.exist?("#{Rails.root}/tmp/#{name2}") and (Time.now - 2.days < File.ctime("#{Rails.root}/tmp/#{name2}")) and !@refresh
       logger.debug("Fetching local #{name2}")
       @calendar_xml2 = File.open("#{Rails.root}/tmp/#{name2}", "r").read
     else
