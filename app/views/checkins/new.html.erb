@@ -1,4 +1,4 @@
-<div id="extras" class="row-fluid hide">
+<div id="extras1" class="row-fluid hide">
   <div class="span3">
     <div class="altitude">50,000 feet: Life</div>
     <div class="altitude">40,000 feet: 3-5-year Outlook</div>
@@ -49,6 +49,9 @@
     </div>
   </div>
 </div>
+
+<%= render :partial => 'awaiting' %>
+<%= render :partial => 'extras2' %>
 
 <div class="row-fluid">
   <div class="span3">
@@ -145,12 +148,6 @@
   <div class="span3">
     <h2>Trello + tasks</h2>
 
-    <% labels = ["", "label-success", "label-warning", "label-important", "label-info", "label-inverse"] %>
-
-    <% 80.times do %>
-      <span class="label <%= labels.sample %>"><%= rand(98234898).to_s %></span>
-    <% end %>
-
     <!--
        Consider dragging and dropping these items
     -->
@@ -170,13 +167,31 @@
 
 <script>
   $(function () {
-    $("#show_helper").click(function () {
+    $("#show_helper1").click(function () {
       if ($(this).parent("li").hasClass("active") === true) {
         $(this).parent("li").removeClass("active");
       } else {
         $(this).parent("li").addClass("active");
       }
-      $("#extras").toggle();
+      $("#extras1").toggle();
+    });
+
+    $("#show_helper2").click(function () {
+      if ($(this).parent("li").hasClass("active") === true) {
+        $(this).parent("li").removeClass("active");
+      } else {
+        $(this).parent("li").addClass("active");
+      }
+      $("#awaiting").toggle();
+    });
+
+    $("#show_helper3").click(function () {
+      if ($(this).parent("li").hasClass("active") === true) {
+        $(this).parent("li").removeClass("active");
+      } else {
+        $(this).parent("li").addClass("active");
+      }
+      $("#extras2").toggle();
     });
   });
 </script>

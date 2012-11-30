@@ -1,0 +1,54 @@
+<div id="extras2" class="row-fluid hide">
+  <% @labels = ["", "label-success", "label-warning", "label-important", "label-info", "label-inverse"] %>
+  <%
+     # accept trello color
+     # return bootstrap label
+     def translate_trello_card_color(string)
+       case string
+         when "green"
+           "label-success"
+         when "yellow"
+           "label-warning"
+         when "orange"
+           "label-warning"
+         when "red"
+           "label-important hide"
+         when "blue"
+           "label-info"
+         when "purple"
+           "label-inverse"
+       end
+     end
+  %>
+
+  <div class="span12">
+    <% board = Trello::Board.find($trello_personal_board_id) %>
+    <div class="board">
+      <h4>
+        <%= link_to board.name, board.url, :target => "blank" %>
+      </h4>
+
+      <div class="tasks">
+        <% board.lists(:filter => "open").each do |list| %>
+          <% unless list.name == "Awaiting" %>
+            <% list.cards.each do |card| %>
+              <%= link_to card.name, card.url, :alt => card.description %>
+              <%= card.due %>
+              <span class="label <%= translate_trello_card_color(card.labels.first.color) if card.labels.first %>">
+                &nbsp;
+              </span>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+
+      <%= board.description if !board.description.empty? %>
+    </div>
+  </div>
+
+  <div class="row-fluid">
+    <div class="span12">
+      <hr/>
+    </div>
+  </div>
+</div>

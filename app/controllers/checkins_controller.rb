@@ -1,6 +1,7 @@
 class CheckinsController < ApplicationController
 
   before_filter :public, :except => :just_login
+  before_filter :refresh
 
   def index
     @checkins = Checkin.hundred_latest
@@ -35,49 +36,28 @@ class CheckinsController < ApplicationController
   end
 
   def new
-    @todays_checkins = Checkin.today
-
-    @latest_checkins = Checkin.latest
-    @checkin         = Checkin.new
-
     require 'open-uri'
 
-    gparams = "?start-min=#{(DateTime.now).to_s}"
+    @todays_checkins = Checkin.today
+    @latest_checkins = Checkin.latest
+
+    @checkin = Checkin.new
+
+    gcal_base_url = "https://www.google.com/calendar/feeds/"
+    gparams       = "?start-min=#{(DateTime.now).to_s}"
     gparams << "&start-max=#{(DateTime.now + 6.months).to_s}"
     gparams << "&orderby=starttime"
 
-    gcal_base_url = "https://www.google.com/calendar/feeds/"
+    url1  = "#{gcal_base_url}#{$google_calendar_1}#{gparams}"
+    name1 = "cal1.xml"
 
-    @refresh = (params[:refresh] ||= false)
+    url2  = "#{gcal_base_url}#{$google_calendar_2}#{gparams}"
+    name2 = "cal2.xml"
 
-    @url  = "#{gcal_base_url}andria.williams%40gmail.com/private-66e0674cd72ec792be8548356a87808d/full#{gparams}"
-    name  = "andria_cal.xml"
-    @url2 = "#{gcal_base_url}ryanjwold%40gmail.com/private-66728cb6cd63fbe9de7b7550c9bb24c9/full#{gparams}"
-    name2 = "ryan_cal.xml"
+    @calendar_xml1 = try_cache(name1, url1)
+    @calendar_xml2 = try_cache(name2, url2)
 
-    if File.exist?("#{Rails.root}/tmp/#{name}") and (Time.now - 2.days < File.ctime("#{Rails.root}/tmp/#{name}")) and !@refresh
-      logger.debug("Fetching local #{name}")
-      @calendar_xml = File.open("#{Rails.root}/tmp/#{name}", "r").read
-    else
-      logger.debug("Fetching #{@url}")
-      @calendar_xml = open(@url).read
-      File.open("#{Rails.root}/tmp/#{name}", "w") do |f|
-        f << @calendar_xml
-      end
-    end
-
-    if File.exist?("#{Rails.root}/tmp/#{name2}") and (Time.now - 2.days < File.ctime("#{Rails.root}/tmp/#{name2}")) and !@refresh
-      logger.debug("Fetching local #{name2}")
-      @calendar_xml2 = File.open("#{Rails.root}/tmp/#{name2}", "r").read
-    else
-      logger.debug("Fetching #{@url2}")
-      @calendar_xml2 = open(@url2).read
-      File.open("#{Rails.root}/tmp/#{name2}", "w") do |f|
-        f << @calendar_xml2
-      end
-    end
-
-    doc             = Nokogiri::XML(@calendar_xml)
+    doc             = Nokogiri::XML(@calendar_xml1)
     @shared_entries = doc.css("entry").sort_by { |e| DateTime.parse(e.xpath("gd:when")[0]["startTime"]) }[0..9]
 
     doc2          = Nokogiri::XML(@calendar_xml2)
@@ -86,6 +66,32 @@ class CheckinsController < ApplicationController
     respond_to do |format|
       format.html
       format.xml { render :xml => @checkin }
+    end
+  end
+
+  # take a filename and url and will download the results and cache it
+  def try_cache(name = "", url = "", options = { :refresh => @refresh, :xml => false })
+    return false if url.empty?
+
+    to_xml = options[:xml]
+
+    @response = ""
+
+    if File.exist?("#{Rails.root}/tmp/#{name}") and (Time.now - 2.days < File.ctime("#{Rails.root}/tmp/#{name}")) and !refresh
+      logger.debug("Fetching local #{name}")
+      @response = File.open("#{Rails.root}/tmp/#{name}", "r").read
+    else
+      logger.debug("Fetching #{url}")
+      @response = open(url).read
+      File.open("#{Rails.root}/tmp/#{name}", "w") do |f|
+        f << @response
+      end
+    end
+
+    if to_xml
+      return Nokogiri::XML(@response)
+    else
+      return @response
     end
   end
 
@@ -155,6 +161,13 @@ class CheckinsController < ApplicationController
       "events"         => @simile_formatted_checkins
     }
     render :json => payload
+  end
+
+
+  private
+
+  def refresh
+    @refresh = params[:refresh] ||= nil
   end
 
 end

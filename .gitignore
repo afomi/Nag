@@ -7,3 +7,5 @@ tmp/
 
 .powrc
 .rvmrc
+
+config/initializers/trello.rb

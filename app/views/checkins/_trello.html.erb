@@ -1,0 +1,38 @@
+<%
+   todo_button = image_tag("/images/fff/help.png",
+                           :alt => "Create a checklist and clarify this card by stating the desired outcome in the past tense, and  and identifying doable next actions"
+   )
+%>
+<div style="height: 40px;">&nbsp;</div>
+
+<% @boards.each do |board| %>
+  <div class="board">
+    <h2>
+      <%= link_to board.name, board.url, :target => "blank" %>
+    </h2>
+
+    <% board.lists(:filter => "open").each do |list| %>
+      <div class="tasks">
+        <h4 style="text-transform: uppercase; color: #ff4500;">
+          <%= list.name %>
+        </h4>
+
+        <% list.cards.each do |card| %>
+          <span class="label <%= @labels.sample %>">
+            <%= link_to card.name, card.url, :alt => card.description %>
+            <%= card.due %>
+          </span>
+        <% end %>
+      </div>
+    <% end %>
+
+    <%= board.description if !board.description.empty? %>
+  </div>
+<% end %>
+
+<!--<span class="label">Default</span>-->
+<!--Success	<span class="label label-success">Success</span>-->
+<!--Warning	<span class="label label-warning">Warning</span>-->
+<!--Important	<span class="label label-important">Important</span>-->
+<!--Info	<span class="label label-info">Info</span>-->
+<!--Inverse	<span class="label label-inverse">Inverse</span>-->
