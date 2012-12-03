@@ -2,8 +2,11 @@
   begin
     start_time = DateTime.parse(n.xpath("gd:when")[0]["startTime"])
     end_time   = DateTime.parse(n.xpath("gd:when")[0]["endTime"])
+
+    from_shared_calendar = n.text.include?("andria")
+    link_color = from_shared_calendar ? "green" : "orange"
 %>
-    <span style="color: orange;">
+    <span style="color: <%= link_color %>;">
       <%= start_time.strftime("%h %d") %>
     </span>
     -
@@ -14,7 +17,7 @@
       <%= text %>
     </span>
     <% unless start_time.strftime("%I:%M%P") == "12:00am" %>
-      <span style="color: orange;">
+      <span style="color: <%= link_color %>;">
         <%= start_time.strftime("%I:%M%P") %>
       </span>
     <% end %>

@@ -158,10 +158,8 @@
   <div class="span3">
     <h2><%= Time.now.strftime("%a - %b %d, %Y") %></h2>
 
-    <h3>Our Calendar</h3>
-    <%= render :partial => "partials/calendar", :locals => { :entries => @shared_entries } %>
-    <h3>Ryan's Calendar</h3>
-    <%= render :partial => "partials/calendar", :locals => { :entries => @ryan_entries } %>
+    <h3>Our Calendars</h3>
+    <%= render :partial => "partials/calendar", :locals => { :entries => @entries } %>
   </div>
 </div>
 

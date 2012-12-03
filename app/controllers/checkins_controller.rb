@@ -57,11 +57,9 @@ class CheckinsController < ApplicationController
     @calendar_xml1 = try_cache(name1, url1)
     @calendar_xml2 = try_cache(name2, url2)
 
-    doc             = Nokogiri::XML(@calendar_xml1)
-    @shared_entries = doc.css("entry").sort_by { |e| DateTime.parse(e.xpath("gd:when")[0]["startTime"]) }[0..9]
-
-    doc2          = Nokogiri::XML(@calendar_xml2)
-    @ryan_entries = doc2.css("entry").sort_by { |e| t = e.xpath("gd:when"); t2 = t[0]; t3 = t2["startTime"] rescue Time.now.to_s; DateTime.parse(t3) }[0..9]
+    doc      = Nokogiri::XML(@calendar_xml1).css("entry")
+    doc2     = Nokogiri::XML(@calendar_xml2).css("entry")
+    @entries = (doc + doc2).sort_by { |e| t = e.xpath("gd:when"); t2 = t[0]; t3 = t2["startTime"] rescue Time.now.to_s; DateTime.parse(t3) }[0..19]
 
     respond_to do |format|
       format.html
