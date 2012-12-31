@@ -30,7 +30,7 @@
       <% list.cards.each do |card| %>
         <% if card.labels.first.color == "purple" %>
           <%= link_to card.name, card.url, :alt => card.description %>
-          <%= card.due.to_date %>
+          <%= card.due.to_date if card.due %>
           <br>
         <% end %>
       <% end %>
