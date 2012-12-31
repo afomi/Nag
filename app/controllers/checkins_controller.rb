@@ -60,11 +60,6 @@ class CheckinsController < ApplicationController
     doc      = Nokogiri::XML(@calendar_xml1).css("entry")
     doc2     = Nokogiri::XML(@calendar_xml2).css("entry")
     @entries = (doc + doc2).sort_by { |e| t = e.xpath("gd:when"); t2 = t[0]; t3 = t2["startTime"] rescue Time.now.to_s; DateTime.parse(t3) }[0..19]
-
-    respond_to do |format|
-      format.html
-      format.xml { render :xml => @checkin }
-    end
   end
 
   # take a filename and url and will download the results and cache it
