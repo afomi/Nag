@@ -85,7 +85,21 @@
           <% last_checkin = checkin.created_at %>
         <% end %>
       </div>
-      <%= render 'form' %>
+
+      <div class="row-fluid">
+        <div class="span12">
+          <div class="media">
+            <a class="pull-left" href="#">
+              <img class="media-object" alt="64x64" style="width: 64px; height: 64px;" src="/images/avatar.png">
+            </a>
+
+            <div class="media-body">
+              <%= render 'form' %>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="checkins">
         <% last_checkin = nil %>
         <% @latest_checkins.each do |checkin| %>
