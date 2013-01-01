@@ -6,11 +6,6 @@ function setMessage() {
   setTimeout("alertMessage()", 60000 * minutes);
 }
 
-// highlight the latest entry
-function highlight_active_status(status) {
-  $("." + status).first().addClass("active");
-}
-
 function alertMessage() {
   alert("Nag.");
 }

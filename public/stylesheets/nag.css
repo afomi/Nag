@@ -2,11 +2,6 @@
 Custom Nag Styles
 */
 
-.most-recent {
-    padding: 20px;
-    background-color: #ffffcc;
-}
-
 .active,
 .active:visited {
     font-weight: bold;

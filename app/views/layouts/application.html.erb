@@ -9,12 +9,6 @@
                              "strftime-1.3",
                              'application' %>
   <%= csrf_meta_tag %>
-  <script>
-    $(function () {
-      $(".checkin").first().addClass("most-recent");
-      highlight_active_status("<%= session["status"] || "collect" %>");
-    });
-  </script>
 </head>
 
 <body>

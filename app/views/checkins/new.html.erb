@@ -51,7 +51,6 @@
 </div>
 
 <%= render :partial => 'awaiting' %>
-<%= render :partial => 'extras2' %>
 
 <div class="row-fluid">
   <div class="span3">
@@ -64,6 +63,71 @@
       <p>
         Sincerely, Your Lovely Nag
       </p>
+    </div>
+
+    <div>
+      <h4>Trello + tasks</h4>
+
+      <!--
+         Consider dragging and dropping these items
+      -->
+      File folders, Dropbox and local files
+
+      <div>
+        <div id="extras2" class="row-fluid">
+          <% @labels = ["", "label-success", "label-warning", "label-important", "label-info", "label-inverse"] %>
+          <%
+             # accept trello color
+             # return bootstrap label
+             def translate_trello_card_color(string)
+               case string
+                 when "green"
+                   "label-success"
+                 when "yellow"
+                   "label-warning"
+                 when "orange"
+                   "label-warning"
+                 when "red"
+                   "label-important hide"
+                 when "blue"
+                   "label-info"
+                 when "purple"
+                   "label-inverse"
+               end
+             end
+          %>
+
+          <% if true %>
+            <div class="span12">
+              <% board = Trello::Board.find($trello_personal_board_id) %>
+              <div class="board">
+                <h4>
+                  <%= link_to board.name, board.url, :target => "blank" %>
+                </h4>
+
+                <div class="tasks">
+                  <% board.lists(:filter => "open").each do |list| %>
+                    <% unless list.name == "Awaiting" %>
+                      <% list.cards.each do |card| %>
+                        <span class="label <%= translate_trello_card_color(card.labels.first.color) if card.labels.first %>">
+                          &nbsp;
+                        </span>
+                        <%= link_to card.name, card.url, :alt => card.description %>
+                        <%= card.due.to_date if card.due %>
+                        <br>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                </div>
+
+                <%= board.description if !board.description.empty? %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+      </div>
+
     </div>
   </div>
 
@@ -142,15 +206,6 @@
         $(this).parent("li").addClass("active");
       }
       $("#awaiting").toggle();
-    });
-
-    $("#show_helper3").click(function () {
-      if ($(this).parent("li").hasClass("active") === true) {
-        $(this).parent("li").removeClass("active");
-      } else {
-        $(this).parent("li").addClass("active");
-      }
-      $("#extras2").toggle();
     });
   });
 </script>
