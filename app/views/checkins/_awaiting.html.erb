@@ -36,7 +36,7 @@
         <div class="tasks">
           <% list = Trello::List.find($trello_awaiting_list_id) %>
           <% list.cards.each do |card| %>
-            <% if card.labels.first.color == "purple" %>
+            <% if card.labels && card.labels.first && card.labels.first.color == "purple" %>
               <%= link_to card.name, card.url, :alt => card.description %>
               <%= card.due.to_date if card.due %>
               <br>
@@ -48,7 +48,7 @@
 
         <div class="tasks">
           <% list.cards.each do |card| %>
-            <% unless card.labels.first.color == "purple" %>
+            <% unless card.labels && card.labels.first && card.labels.first.color == "purple" %>
               <%= link_to card.name, card.url, :alt => card.description %>
               <%= card.due.to_date %>
               <br>
