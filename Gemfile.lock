@@ -34,6 +34,7 @@ GEM
     daemons (1.1.9)
     erubis (2.7.0)
     eventmachine (0.12.10)
+    github-markdown (0.5.3)
     hike (1.2.1)
     i18n (0.6.1)
     journey (1.0.4)
@@ -101,6 +102,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  github-markdown
   mysql2
   nokogiri
   rails (= 3.2.2)
