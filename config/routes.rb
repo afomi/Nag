@@ -1,7 +1,10 @@
 Nag::Application.routes.draw do
 
+  resources :documents
+
   resources :habits
 
+  get "tags", :to => "checkins#tags"
   match "help", :to => "status#help"
   get "just_login", :to => "checkins#just_login"
   get "logout", :to => "checkins#logout"

@@ -1,8 +1,14 @@
 <div class="navbar navbar-static-top">
   <div class="navbar-inner">
     <a class="brand" href="#">Nag</a>
+
     <% if logged_in? %>
       <ul class="nav pull-right">
+        <li>
+          <a href="">
+            <%= Time.now.strftime("%a - %b %d, %Y") %>
+          </a>
+        </li>
         <li><%= link_to "Overview", "#", :id => "show_helper1" %></li>
         <li><%= link_to "Process", "#", :id => "show_helper2" %></li>
         <li class="divider-vertical"></li>

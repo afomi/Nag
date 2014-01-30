@@ -1,10 +1,10 @@
 class CheckinsController < ApplicationController
 
-  before_filter :public, :except => :just_login
+  before_filter :public, :except => [:just_login, :tags]
   before_filter :refresh
 
   def index
-    @checkins = Checkin.hundred_latest
+    @checkins = Checkin.latest(30)
 
     respond_to do |format|
       format.html
@@ -14,6 +14,12 @@ class CheckinsController < ApplicationController
 
   def public
     render "public" unless session[:ryan]
+  end
+
+  def tags
+    respond_to do |format|
+      format.json { render :json => parse_tags(Checkin.today) }
+    end
   end
 
   def just_login
@@ -41,11 +47,17 @@ class CheckinsController < ApplicationController
     @todays_checkins = Checkin.today
     @latest_checkins = Checkin.latest
 
+    # @recent_checkins = Checkin.recent
+    # @todays_checkins = @recent_checkins.today
+    # @latest_checkins = @recent_checkins.not_tody
+
     @checkin = Checkin.new
+    @documents = Document.all(:order => "id")
 
     gcal_base_url = "https://www.google.com/calendar/feeds/"
-    gparams       = "?start-min=#{(DateTime.now).to_s}"
-    gparams << "&start-max=#{(DateTime.now + 6.months).to_s}"
+
+    gparams = "?start-min=#{(DateTime.now).to_s}"
+    gparams << "&start-max=#{(DateTime.now + 1.months).to_s}"
     gparams << "&orderby=starttime"
 
     url1  = "#{gcal_base_url}#{$google_calendar_1}#{gparams}"
@@ -64,7 +76,7 @@ class CheckinsController < ApplicationController
 
   # take a filename and url and will download the results and cache it
   def try_cache(name = "", url = "", options = { :refresh => @refresh, :xml => false })
-    return false if url.empty?
+    raise ArgumentError if url.empty?
 
     to_xml = options[:xml]
 
@@ -161,6 +173,10 @@ class CheckinsController < ApplicationController
 
   def refresh
     @refresh = params[:refresh] ||= nil
+  end
+
+  def parse_tags(recordset)
+    recordset.collect(&:text).to_s.scan /(?<=#)[[:alnum:]]+/
   end
 
 end
