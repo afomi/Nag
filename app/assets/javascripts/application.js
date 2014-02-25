@@ -1,3 +1,12 @@
+//= require jquery
+//= require jquery_ujs
+//= require jquery.jeditable.mini
+//= require jquery.textSelection-1.0
+//= require Selection-1.0
+//= require jquery.autosize
+//= require strftime-1.3
+//= require bootstrap
+
 // Helper Methods
 
 // set the 25 minute times
@@ -17,6 +26,8 @@ function updateTime() {
 
 // On Start
 $(function () {
+
+  $('textarea').autosize();
 
   window.setInterval(function () {
       updateTime();

@@ -50,23 +50,35 @@
   </div>
 </div>
 
-<%= render :partial => 'awaiting' %>
+<%= render 'checkins/awaiting' %>
 
 <div class="row-fluid">
   <div class="span3">
-    <div class="greeting">
-      <p>
-        Hi <%= @settings[:user] %>,<br/>
-        Pardon, but what have you been up to?
-      </p>
-
-      <p>
-        Sincerely, Your Lovely Nag
-      </p>
+    <h4>
+      <%= icon 'hand-o-down' %>
+      Pomodoro
+    </h4>
+    <div class="pomodoro">
+      <div class="row-fluid">
+        <div class="span8">
+          <%= text_field_tag 'date', Time.now, :class => 'span12' %>
+        </div>
+        <div class="span4">
+          <%= link_to raw("#{icon 'play'} Start"), "#", :class => "btn start timer" %>
+          <%# icon 'pause' %>
+        </div>
+      </div>
     </div>
 
+    <hr>
+
     <div>
-      <h4>Trello + tasks</h4>
+      <h4>
+        <%= icon 'trello' %>
+        Trello
+      </h4>
+
+      <%= render 'habits/possible' %>
 
       <!--
          Consider dragging and dropping these items
@@ -97,7 +109,7 @@
              end
           %>
 
-          <% if true %>
+          <% if false && true && Rails.env == 'development' %>
             <div class="span12">
               <% board = Trello::Board.find($trello_personal_board_id) %>
               <div class="board">
@@ -134,13 +146,12 @@
   <div class="span6">
     <div class="span12">
       <div class="checkins">
-        <h2><%= Time.now.strftime("%a - %b %d, %Y") %></h2>
         <% last_checkin = nil %>
         <% Checkin.today.each do |checkin| %>
           <%= content_tag(:h5, checkin.created_at.strftime("%B %d"), :style => "text-transform:uppercase;") unless (checkin.created_at.day == (last_checkin.day rescue nil)) %>
           <div class="checkin" style="margin:  0 0 10px 0;">
             <p class="checkin">
-              <span class="label label-success">
+              <span class="label label-info">
                 <%= link_to checkin.created_at.strftime("%I:%M%P"), edit_checkin_path(checkin) %>
               </span>
               <%= raw checkin.text %>
@@ -152,13 +163,25 @@
 
       <div class="row-fluid">
         <div class="span12">
+          <div class="greeting" style="margin-left: 94px;">
+            <p>
+              Hi <%= @settings[:user] %>,<br/>
+              Pardon, what have you been up to?
+            </p>
+
+            <p>
+              Sincerely, Your Lovely Nag
+            </p>
+          </div>
+        </div>
+        <div class="span12">
           <div class="media">
             <a class="pull-left" href="#">
               <img class="media-object" alt="64x64" style="width: 64px; height: 64px;" src="/images/avatar.png">
             </a>
 
             <div class="media-body">
-              <%= render 'form' %>
+              <%= render 'checkins/form' %>
             </div>
           </div>
         </div>
@@ -170,7 +193,7 @@
           <%= content_tag(:h5, checkin.created_at.strftime("%B %d"), :style => "text-transform:uppercase;") unless (checkin.created_at.day == (last_checkin.day rescue nil)) %>
           <div class="checkin" style="margin:  0 0 10px 0;">
             <p class="checkin">
-              <span class="label label-success">
+              <span class="label">
                 <%= link_to checkin.created_at.strftime("%I:%M%P"), edit_checkin_path(checkin) %>
               </span>
               <%= raw checkin.text %>
@@ -183,8 +206,11 @@
   </div>
 
   <div class="span3">
-    <h3>Our Calendars</h3>
-    <%= render :partial => "partials/calendar", :locals => { :entries => @entries } %>
+    <h4>
+      <%= icon 'calendar' %>
+      <%= link_to 'Calendar', 'https://www.google.com/calendar', :target => '_blank' %>
+    </h4>
+    <%= render "partials/calendar", { :entries => @entries } %>
   </div>
 </div>
 

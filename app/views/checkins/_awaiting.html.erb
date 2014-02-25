@@ -31,29 +31,33 @@
 
     <div class="row-fluid">
       <div class="span3">
-        <h4>Awaiting</h4>
+        <h4>
+          Awaiting
+        </h4>
 
         <div class="tasks">
-          <% list = Trello::List.find($trello_awaiting_list_id) %>
-          <% list.cards.each do |card| %>
-            <% if card.labels && card.labels.first && card.labels.first.color == "purple" %>
-              <%= link_to card.name, card.url, :alt => card.description %>
-              <%= card.due.to_date if card.due %>
+          <%# list = Trello::List.find($trello_awaiting_list_id) %>
+          <%# list.cards.each do |card| %>
+            <%# if card.labels && card.labels.first && card.labels.first.color == "purple" %>
+              <%# binding.pry %>
+              <%#= link_to card.name, card.url, :alt => card.description %>
+              <%#= card.due.to_date if card.due %>
               <br>
-            <% end %>
-          <% end %>
+            <%# end %>
+          <%# end %>
         </div>
 
         <h4>Waiting to Do</h4>
 
         <div class="tasks">
-          <% list.cards.each do |card| %>
-            <% unless card.labels && card.labels.first && card.labels.first.color == "purple" %>
-              <%= link_to card.name, card.url, :alt => card.description %>
-              <%= card.due.to_date if card.due %>
+          <%# list.cards.each do |card| %>
+            <%# unless card.labels && card.labels.first && card.labels.first.color == "purple" %>
+            <%#= pry %>
+              <%#= link_to card.name, card.url, :alt => card.description %>
+              <%#= card.due.to_date if card.due %>
               <br>
-            <% end %>
-          <% end %>
+            <%# end %>
+          <%# end %>
         </div>
       </div>
 

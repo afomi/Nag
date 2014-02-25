@@ -2,6 +2,18 @@
 Custom Nag Styles
 */
 
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(http://themes.googleusercontent.com/static/fonts/opensans/v8/cJZKeOuBrn4kERxqtaUH3bO3LdcAZYWl9Si6vvxL-qU.woff) format('woff');
+}
+
+body {
+    font-family: 'Open Sans';
+    font-size: 12px;
+}
+
 .active,
 .active:visited {
     font-weight: bold;
@@ -60,6 +72,10 @@ table td {
 
 .hover {
     display: inline;
+}
+
+.checkins h5 {
+    color: hotpink;
 }
 
 .checkin a {

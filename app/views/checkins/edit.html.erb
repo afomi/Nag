@@ -1,6 +1,9 @@
-<h1>Editing checkin</h1>
+<h1>
+  Checkin
+</h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @checkin %> |
-<%= link_to 'Back', checkins_path %>
+<%= link_to 'Checkins', checkins_path, :class => 'btn btn-mini' %>
+<%= link_to 'Show', @checkin, :class => 'btn btn-mini' %>
+<%= link_to raw("#{icon 'trash-o'} Destroy"), @checkin, :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-mini btn-danger' %>

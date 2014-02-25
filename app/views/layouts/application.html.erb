@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Nag</title>
+  <title>
+    Nag
+  </title>
 
   <%= stylesheet_link_tag 'application' %>
   <%= javascript_include_tag 'application' %>
@@ -9,7 +11,7 @@
 </head>
 
 <body>
-<%= render :partial => "layouts/nav" %>
+<%= render "layouts/nav" %>
 <div class="container-fluid" style="padding: 10px;">
   <%= yield %>
 </div>

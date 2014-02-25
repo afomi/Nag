@@ -176,7 +176,7 @@ class CheckinsController < ApplicationController
   end
 
   def parse_tags(recordset)
-    recordset.collect(&:text).to_s.scan /(?<=#)[[:alnum:]]+/
+    recordset.collect(&:text).to_s.scan(/(?<=#)[[:alnum:]]+/)
   end
 
 end
