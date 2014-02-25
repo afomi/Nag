@@ -1,0 +1,15 @@
+<% titles = { 1 => 'Current', 2 => 'On Deck', 3 => 'Someday Maybe' } %>
+
+<% @documents.each do |document| %>
+<%= form_for document, :url => document_path(document) do |f| %>
+  <%= f.submit "Update", :class => 'btn btn-mini pull-right' %>
+  <h5>
+    <%= titles[document.id] %>
+  </h5>
+  <%= f.text_area :value, :class => 'span12', :rows => 7 %>
+<% end %>
+<% end %>
+
+
+<%#= raw markdown File.open("/Users/ryanw/Dropbox/Development/misc/notes/possible.md").read %>
+<%#= raw markdown File.open("/Users/ryan/Dropbox/Development/misc/notes/possible.md").read %>
