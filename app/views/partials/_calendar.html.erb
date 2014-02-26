@@ -4,23 +4,22 @@
     end_time   = DateTime.parse(n.xpath("gd:when")[0]["endTime"])
 
     from_shared_calendar = n.text.include?("andria")
-    link_color = from_shared_calendar ? "green" : "orange"
+    link_color = from_shared_calendar ? "#A47AE2" : "#7BD148"
 %>
     <span style="color: <%= link_color %>;">
       <%= start_time.strftime("%h %d") %>
+  <% unless start_time.strftime("%I:%M%P") == "12:00am" %>
+      @
+      <%= start_time.strftime("%I:%M%P") %>
     </span>
+  <% end %>
     -
-    <span style="text-transform: uppercase; color: #333;">
+    <span style="color: #333;">
       <% text = n.css("title").text %>
       <%= image_tag("drink.png") if text =~ /birthday/i %>
       <%= image_tag("heart.png") if text =~ /anniversary/i %>
       <%= text %>
     </span>
-    <% unless start_time.strftime("%I:%M%P") == "12:00am" %>
-      <span style="color: <%= link_color %>;">
-        <%= start_time.strftime("%I:%M%P") %>
-      </span>
-    <% end %>
     <br>
   <%
      rescue
