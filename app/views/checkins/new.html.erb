@@ -73,11 +73,6 @@
     <hr>
 
     <div>
-      <h4>
-        <%= icon 'trello' %>
-        Trello
-      </h4>
-
       <%= render 'habits/possible' %>
 
       <!--
@@ -149,29 +144,30 @@
         <% last_checkin = nil %>
         <% Checkin.today.each do |checkin| %>
           <%= content_tag(:h5, checkin.created_at.strftime("%B %d"), :style => "text-transform:uppercase;") unless (checkin.created_at.day == (last_checkin.day rescue nil)) %>
-          <div class="checkin" style="margin:  0 0 10px 0;">
-            <p class="checkin">
-              <span class="label label-info">
-                <%= link_to checkin.created_at.strftime("%I:%M%P"), edit_checkin_path(checkin) %>
-              </span>
-              <%= raw checkin.text %>
-            </p>
-          </div>
+          <%= render 'checkins/one', { checkin: checkin } %>
           <% last_checkin = checkin.created_at %>
         <% end %>
       </div>
 
+      <hr>
+
       <div class="row-fluid">
         <div class="span12">
           <div class="greeting" style="margin-left: 94px;">
-            <p>
-              Hi <%= @settings[:user] %>,<br/>
-              Pardon, what have you been up to?
-            </p>
-
-            <p>
-              Sincerely, Your Lovely Nag
-            </p>
+            <div class="row-fluid">
+              <div class="span6">
+                Hi <%= @settings[:user] %>,
+                <br>
+                Pardon, what have you been up to?
+              </div>
+              <div class="span6">
+                <p style="text-align: right;">
+                  Sincerely,
+                  <br>
+                  Your Lovely Nag
+                </p>
+              </div>
+            </div>
           </div>
         </div>
         <div class="span12">
@@ -187,18 +183,13 @@
         </div>
       </div>
 
+      <hr>
+
       <div class="checkins">
         <% last_checkin = nil %>
         <% @latest_checkins.each do |checkin| %>
           <%= content_tag(:h5, checkin.created_at.strftime("%B %d"), :style => "text-transform:uppercase;") unless (checkin.created_at.day == (last_checkin.day rescue nil)) %>
-          <div class="checkin" style="margin:  0 0 10px 0;">
-            <p class="checkin">
-              <span class="label">
-                <%= link_to checkin.created_at.strftime("%I:%M%P"), edit_checkin_path(checkin) %>
-              </span>
-              <%= raw checkin.text %>
-            </p>
-          </div>
+          <%= render 'checkins/one', { checkin: checkin } %>
           <% last_checkin = checkin.created_at %>
         <% end %>
       </div>

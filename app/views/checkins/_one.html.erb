@@ -1,0 +1,12 @@
+<div class="row-fluid">
+  <div class="span12">
+    <div class="checkin" style="margin: 0 0 10px 0;">
+      <span class="label <%= 'label-info' if checkin.created_at > Time.now.beginning_of_day %> pull-left" style="margin-right: 10px;">
+        <%= link_to checkin.created_at.strftime("%I:%M%P"), edit_checkin_path(checkin) %>
+      </span>
+      <div style="margin-left: 10px;">
+        <%= raw checkin.text %>
+      </div>
+    </div>
+  </div>
+</div>

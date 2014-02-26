@@ -110,10 +110,10 @@ class CheckinsController < ApplicationController
     respond_to do |format|
       if @checkin.save
         format.html { redirect_to(new_checkin_path, :notice => 'Checkin was successfully created.') }
-        format.xml { render :xml => @checkin, :status => :created, :location => @checkin }
+        format.js
       else
         format.html { render :action => "new" }
-        format.xml { render :xml => @checkin.errors, :status => :unprocessable_entity }
+        format.json { render :json => @checkin.errors, :status => :unprocessable_entity }
       end
     end
   end
