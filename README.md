@@ -1,6 +1,6 @@
 ## About Nag
 
-Nag is a web-application designed to check in on me at periodic intervals
+Nag is a web-application designed to prompt me at periodic intervals
 to ensure I am making progress on items.  It is a personal micro-blogging tool.
 
 It should be lightweight, easy, and useful.
@@ -12,14 +12,13 @@ it can help me prioritize.
 
 Every 25 minutes, ask me what I've been doing since whatever I was doing since last checkin.
 
-## Technology
-* Rails 3.0.x
-* SQLite
-* JQuery
-* Twitter Bootstrap
+## Stack
 
-### Backlog
-* In Trello, https://trello.com/board/personal/
+* Rails 3.2.17
+* SQLite
+* JQuery 1.11.1
+* Twitter Bootstrap 2.3.2
 
 #### Author
-* Ryan Wold, afomi.com
+
+* Ryan Wold, [afomi.com](http://afomi.com)
