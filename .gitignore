@@ -8,4 +8,4 @@ tmp/
 .powrc
 .rvmrc
 
-config/initializers/trello.rb
+config/initializers/settings.rb
