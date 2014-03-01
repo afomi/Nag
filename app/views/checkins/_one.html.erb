@@ -5,7 +5,7 @@
         <%= link_to checkin.created_at.strftime("%I:%M%P"), edit_checkin_path(checkin) %>
       </span>
       <div style="margin-left: 10px;">
-        <%= raw checkin.text %>
+        <%= raw markdown checkin.text %>
       </div>
     </div>
   </div>
