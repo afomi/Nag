@@ -1,3 +1,8 @@
+<h4>
+  <%= icon 'calendar' %>
+  <%= link_to 'Calendar', 'https://www.google.com/calendar', :target => '_blank' %>
+</h4>
+
 <% entries.each do |n|
   begin
     start_time = DateTime.parse(n.xpath("gd:when")[0]["startTime"])

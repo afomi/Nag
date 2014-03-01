@@ -47,57 +47,10 @@ class CheckinsController < ApplicationController
     @todays_checkins = Checkin.today
     @latest_checkins = Checkin.latest
 
-    # @recent_checkins = Checkin.recent
-    # @todays_checkins = @recent_checkins.today
-    # @latest_checkins = @recent_checkins.not_tody
-
     @checkin = Checkin.new
     @documents = Document.all(:order => "id")
-
-    gcal_base_url = "https://www.google.com/calendar/feeds/"
-
-    gparams = "?start-min=#{(DateTime.now).to_s}"
-    gparams << "&start-max=#{(DateTime.now + 1.months).to_s}"
-    gparams << "&orderby=starttime"
-
-    url1  = "#{gcal_base_url}#{$google_calendar_1}#{gparams}"
-    name1 = "cal1.xml"
-
-    url2  = "#{gcal_base_url}#{$google_calendar_2}#{gparams}"
-    name2 = "cal2.xml"
-
-    @calendar_xml1 = try_cache(name1, url1)
-    @calendar_xml2 = try_cache(name2, url2)
-
-    doc      = Nokogiri::XML(@calendar_xml1).css("entry")
-    doc2     = Nokogiri::XML(@calendar_xml2).css("entry")
-    @entries = (doc + doc2).sort_by { |e| t = e.xpath("gd:when"); t2 = t[0]; t3 = t2["startTime"] rescue Time.now.to_s; DateTime.parse(t3) }[0..19]
-  end
-
-  # take a filename and url and will download the results and cache it
-  def try_cache(name = "", url = "", options = { :refresh => @refresh, :xml => false })
-    raise ArgumentError if url.empty?
-
-    to_xml = options[:xml]
-
-    @response = ""
-
-    if File.exist?("#{Rails.root}/tmp/#{name}") and (Time.now - 2.days < File.ctime("#{Rails.root}/tmp/#{name}")) and !refresh
-      logger.debug("Fetching local #{name}")
-      @response = File.open("#{Rails.root}/tmp/#{name}", "r").read
-    else
-      logger.debug("Fetching #{url}")
-      @response = open(url).read
-      File.open("#{Rails.root}/tmp/#{name}", "w") do |f|
-        f << @response
-      end
-    end
-
-    if to_xml
-      return Nokogiri::XML(@response)
-    else
-      return @response
-    end
+    # Optionally enable extras by uncommenting the line below
+    # extras
   end
 
   def edit
@@ -177,6 +130,53 @@ class CheckinsController < ApplicationController
 
   def parse_tags(recordset)
     recordset.collect(&:text).to_s.scan(/(?<=#)[[:alnum:]]+/)
+  end
+
+  def extras
+    gcal_base_url = "https://www.google.com/calendar/feeds/"
+
+    gparams = "?start-min=#{(DateTime.now).to_s}"
+    gparams << "&start-max=#{(DateTime.now + 1.months).to_s}"
+    gparams << "&orderby=starttime"
+
+    url1  = "#{gcal_base_url}#{$google_calendar_1}#{gparams}"
+    name1 = "cal1.xml"
+
+    url2  = "#{gcal_base_url}#{$google_calendar_2}#{gparams}"
+    name2 = "cal2.xml"
+
+    @calendar_xml1 = try_cache(name1, url1)
+    @calendar_xml2 = try_cache(name2, url2)
+
+    doc      = Nokogiri::XML(@calendar_xml1).css("entry")
+    doc2     = Nokogiri::XML(@calendar_xml2).css("entry")
+    @entries = (doc + doc2).sort_by { |e| t = e.xpath("gd:when"); t2 = t[0]; t3 = t2["startTime"] rescue Time.now.to_s; DateTime.parse(t3) }[0..19]
+  end
+
+  # take a filename and url and will download the results and cache it
+  def try_cache(name = "", url = "", options = { :refresh => @refresh, :xml => false })
+    raise ArgumentError if url.empty?
+
+    to_xml = options[:xml]
+
+    @response = ""
+
+    if File.exist?("#{Rails.root}/tmp/#{name}") and (Time.now - 2.days < File.ctime("#{Rails.root}/tmp/#{name}")) and !refresh
+      logger.debug("Fetching local #{name}")
+      @response = File.open("#{Rails.root}/tmp/#{name}", "r").read
+    else
+      logger.debug("Fetching #{url}")
+      @response = open(url).read
+      File.open("#{Rails.root}/tmp/#{name}", "w") do |f|
+        f << @response
+      end
+    end
+
+    if to_xml
+      return Nokogiri::XML(@response)
+    else
+      return @response
+    end
   end
 
 end
