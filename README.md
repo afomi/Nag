@@ -15,9 +15,23 @@ Every 25 minutes, ask me what I've been doing since whatever I was doing since l
 ## Stack
 
 * Rails 3.2.17
-* SQLite
+* SQLite or MySQL
 * JQuery 1.11.1
 * Twitter Bootstrap 2.3.2
+
+## Setup
+
+* git clone https://github.com/afomi/Nag.git nag
+* cd nag
+* bundle install
+* update /database.yml
+* specify custom settings to /config/settings.rb
+
+Optionally, enable google calendar feed
+
+    in /config/initializers/settings.rb
+    $google_calendar_1 = ""                # find the Google Calendar XML in the Calendar Details Page
+    $google_calendar_2 = ""
 
 #### Author
 
