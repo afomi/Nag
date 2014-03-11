@@ -30,11 +30,18 @@ function geocode() {
       var latitude = position.coords.latitude;
       var longitude = position.coords.longitude;
       var accuracy = position.coords.accuracy;
-      $("#checkin_latitude").attr('value', coordinates.latitude);
-      $("#checkin_longitude").attr('value', coordinates.longitude);
+
+      $("#checkin_latitude").attr('value', latitude);
+      $("#checkin_longitude").attr('value', longitude);
+
+      var output = document.getElementById("map-image");
+      var img = new Image();
+      img.src = "http://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&sensor=false&markers=color:green%7Clabel:here%7C" + latitude + "," + longitude + "&size=300x300&zoom=15";
+      output.appendChild(img);
+
     }, function error(msg) {
       alert('Please enable your GPS position future.');
-    }, {maximumAge: 600000, timeout: 5000, enableHighAccuracy: false});
+    }, { maximumAge: 600000, timeout: 5000, enableHighAccuracy: false });
   } else {
     alert("Geolocation API is not supported in your browser.");
   }
