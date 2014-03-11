@@ -5,9 +5,11 @@
         <h2><%= pluralize(@checkin.errors.count, "error") %> prohibited this checkin from being saved:</h2>
 
         <ul>
-          <% @checkin.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
+        <% @checkin.errors.full_messages.each do |msg| %>
+          <li>
+            <%= msg %>
+          </li>
+        <% end %>
         </ul>
       </div>
     <% end %>
@@ -17,8 +19,12 @@
       <div class="clearfix"></div>
       <%= f.submit :value => "Checkin", :class => "btn btn-mini btn-primary" %>
       at <span id="timer"></span>
-      <%= f.submit :value => "Geo", :class => "btn btn-mini pull-right" %>
+      <span class='lat'></span>
+      <span class='lng'></span>
     </div>
+
+    <%= f.hidden_field :latitude %>
+    <%= f.hidden_field :longitude %>
 
     <% if action_name == "edit" %>
       <div class="field">

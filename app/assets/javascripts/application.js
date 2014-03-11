@@ -10,7 +10,7 @@
 // Helper Methods
 
 // set the 25 minute times
-function setMessage() {
+function setAlertMessage() {
   var minutes = 25;
   setTimeout("alertMessage()", 60000 * minutes);
 }
@@ -24,9 +24,24 @@ function updateTime() {
   $("#timer").text(d.strftime("%I:%M %P"));
 }
 
+function geocode() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var latitude = position.coords.latitude;
+      var longitude = position.coords.longitude;
+      var accuracy = position.coords.accuracy;
+      $("#checkin_latitude").attr('value', coordinates.latitude);
+      $("#checkin_longitude").attr('value', coordinates.longitude);
+    }, function error(msg) {
+      alert('Please enable your GPS position future.');
+    }, {maximumAge: 600000, timeout: 5000, enableHighAccuracy: false});
+  } else {
+    alert("Geolocation API is not supported in your browser.");
+  }
+}
+
 // On Start
 $(function () {
-
   $('textarea').autosize();
 
   window.setInterval(function () {
@@ -68,8 +83,7 @@ $(function () {
     }
   );
 
-  setMessage();
+  setAlertMessage();
   updateTime();
+  geocode();
 });
-
-
