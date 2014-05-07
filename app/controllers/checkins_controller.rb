@@ -48,9 +48,11 @@ class CheckinsController < ApplicationController
     @latest_checkins = Checkin.latest
 
     @checkin = Checkin.new
-    @documents = Document.all(:order => "id")
+    # @documents = Document.all(:order => "id")
     # Optionally enable extras by uncommenting the line below
-    # extras
+    extras()
+
+    @thought = Thought.new
   end
 
   def edit

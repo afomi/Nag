@@ -11,15 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131006055249) do
+ActiveRecord::Schema.define(:version => 20140414015825) do
 
   create_table "checkins", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "project_id"
     t.text     "text"
-    t.integer  "touchpoint_id", :default => 0
+    t.integer  "touchpoint_id",               :default => 0
+    t.string   "latitude",      :limit => 30
+    t.string   "longitude",     :limit => 30
   end
+
+  add_index "checkins", ["created_at"], :name => "index_created_at"
 
   create_table "documents", :force => true do |t|
     t.text     "value"
@@ -39,6 +43,13 @@ ActiveRecord::Schema.define(:version => 20131006055249) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "app",        :limit => 36
+  end
+
+  create_table "thoughts", :force => true do |t|
+    t.text     "text"
+    t.integer  "position"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "touchpoints", :force => true do |t|

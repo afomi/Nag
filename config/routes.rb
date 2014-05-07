@@ -1,7 +1,7 @@
 Nag::Application.routes.draw do
 
+  resources :thoughts
   resources :documents
-
   resources :habits
 
   get "tags", :to => "checkins#tags"

@@ -4,6 +4,22 @@
 
 <%= render 'form' %>
 
+<h4>
+  <%= icon :globe %>
+  Gecoded
+  <br>
+
+  <small>
+    to
+    <%= @checkin.latitude %>,
+    <%= @checkin.longitude %>
+  </small>
+</h4>
+
+<%= image_tag "http://maps.googleapis.com/maps/api/staticmap?center=#{@checkin.latitude},#{@checkin.longitude}&sensor=false&markers=color:green%7Clabel:here%7C#{@checkin.latitude},#{@checkin.longitude}&size=300x300&zoom=15" %>
+
+<hr>
+
 <%= link_to 'Checkins', checkins_path, :class => 'btn btn-mini' %>
 <%= link_to 'Show', @checkin, :class => 'btn btn-mini' %>
 <%= link_to raw("#{icon 'trash-o'} Destroy"), @checkin, :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-mini btn-danger' %>

@@ -1,3 +1,8 @@
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<div id="timeline">
+
+</div>
+
 <div id="extras1" class="row-fluid hide">
   <div class="span3">
     <div class="altitude">50,000 feet: Life</div>
@@ -52,156 +57,126 @@
 
 <%= render 'checkins/awaiting' %>
 
+<% @checkins = Checkin.today %>
+
 <div class="row-fluid">
-  <div class="span3">
-    <h4>
-      <%= icon 'hand-o-down' %>
-      Pomodoro
-    </h4>
-    <div class="pomodoro">
-      <div class="row-fluid">
-        <div class="span8">
-          <%= text_field_tag 'date', Time.now, :class => 'span12' %>
+  <div class="span9">
+  <% if @checkins.present? %>
+    <div class="checkins">
+      <% last_checkin = nil %>
+      <% @checkins.each do |checkin| %>
+        <%= content_tag(:h5, checkin.created_at.strftime("%B %d"), :style => "text-transform:uppercase;") unless (checkin.created_at.day == (last_checkin.day rescue nil)) %>
+        <%= render 'checkins/one', { checkin: checkin } %>
+        <% last_checkin = checkin.created_at %>
+      <% end %>
+      <hr>
+    </div>
+  <% end %>
+
+    <div class="row-fluid">
+      <div class="span12">
+        <div class="greeting" style="margin-left: 94px;">
+          <div class="row-fluid">
+            <div class="span6">
+              Hi <%= @settings[:user] %>,
+              <br>
+              Pardon, what have you been up to?
+            </div>
+            <div class="span6">
+              <p style="text-align: right;">
+                Sincerely,
+                <br>
+                Your Lovely Nag
+              </p>
+            </div>
+          </div>
         </div>
-        <div class="span4">
-          <%= link_to raw("#{icon 'play'} Start"), "#", :class => "btn start timer" %>
-          <%# icon 'pause' %>
+      </div>
+      <div class="span12">
+        <div class="media">
+          <a class="pull-left" href="#">
+            <img class="media-object" alt="64x64" style="width: 64px; height: 64px;" src="/images/avatar.png">
+          </a>
+
+          <div class="media-body">
+            <%= render 'checkins/form' %>
+          </div>
         </div>
       </div>
     </div>
 
     <hr>
 
-    <div>
-      <%= render 'habits/possible' %>
-
-      <!--
-         Consider dragging and dropping these items
-      -->
-      File folders, Dropbox and local files
-
-      <div>
-        <div id="extras2" class="row-fluid">
-          <% @labels = ["", "label-success", "label-warning", "label-important", "label-info", "label-inverse"] %>
-          <%
-             # accept trello color
-             # return bootstrap label
-             def translate_trello_card_color(string)
-               case string
-                 when "green"
-                   "label-success"
-                 when "yellow"
-                   "label-warning"
-                 when "orange"
-                   "label-warning"
-                 when "red"
-                   "label-important hide"
-                 when "blue"
-                   "label-info"
-                 when "purple"
-                   "label-inverse"
-               end
-             end
-          %>
-
-          <% if false && true && Rails.env == 'development' %>
-            <div class="span12">
-              <% board = Trello::Board.find($trello_personal_board_id) %>
-              <div class="board">
-                <h4>
-                  <%= link_to board.name, board.url, :target => "blank" %>
-                </h4>
-
-                <div class="tasks">
-                  <% board.lists(:filter => "open").each do |list| %>
-                    <% unless list.name == "Awaiting" %>
-                      <% list.cards.each do |card| %>
-                        <span class="label <%= translate_trello_card_color(card.labels.first.color) if card.labels.first %>">
-                          &nbsp;
-                        </span>
-                        <%= link_to card.name, card.url, :alt => card.description %>
-                        <%= card.due.to_date if card.due %>
-                        <br>
-                      <% end %>
-                    <% end %>
-                  <% end %>
-                </div>
-
-                <%= board.description if !board.description.empty? %>
-              </div>
-            </div>
-          <% end %>
-        </div>
-
-      </div>
-
+    <div class="tags">
+      Tags:
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <span>
+        <%= icon :tag %> upby8
+      </span>
+      <span>
+        <%= icon :tag  %> wakeupearly
+      </span>
+      <span>
+        <%= icon :tag %> dailyyoga
+      </span>
+      <span>
+        <%= icon :tag %> bedby11
+      </span>
+      <span>
+        <%= icon :tag %> weeklyreview
+      </span>
     </div>
-  </div>
 
-  <div class="span6">
-    <div class="span12">
-      <div class="checkins">
-        <% last_checkin = nil %>
-        <% Checkin.today.each do |checkin| %>
-          <%= content_tag(:h5, checkin.created_at.strftime("%B %d"), :style => "text-transform:uppercase;") unless (checkin.created_at.day == (last_checkin.day rescue nil)) %>
-          <%= render 'checkins/one', { checkin: checkin } %>
-          <% last_checkin = checkin.created_at %>
-        <% end %>
-      </div>
+    <hr>
 
-      <hr>
-
-      <div class="row-fluid">
-        <div class="span12">
-          <div class="greeting" style="margin-left: 94px;">
-            <div class="row-fluid">
-              <div class="span6">
-                Hi <%= @settings[:user] %>,
-                <br>
-                Pardon, what have you been up to?
-              </div>
-              <div class="span6">
-                <p style="text-align: right;">
-                  Sincerely,
-                  <br>
-                  Your Lovely Nag
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="span12">
-          <div class="media">
-            <a class="pull-left" href="#">
-              <img class="media-object" alt="64x64" style="width: 64px; height: 64px;" src="/images/avatar.png">
-            </a>
-
-            <div class="media-body">
-              <%= render 'checkins/form' %>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <hr>
-
-      <div class="checkins">
-        <% last_checkin = nil %>
-        <% @latest_checkins.each do |checkin| %>
-          <%= content_tag(:h5, checkin.created_at.strftime("%B %d"), :style => "text-transform:uppercase;") unless (checkin.created_at.day == (last_checkin.day rescue nil)) %>
-          <%= render 'checkins/one', { checkin: checkin } %>
-          <% last_checkin = checkin.created_at %>
-        <% end %>
-      </div>
+    <div class="checkins">
+      <% last_checkin = nil %>
+      <% @latest_checkins.each do |checkin| %>
+        <%= content_tag(:h5, checkin.created_at.strftime("%B %d"), :style => "text-transform:uppercase;") unless (checkin.created_at.day == (last_checkin.day rescue nil)) %>
+        <%= render 'checkins/one', { checkin: checkin } %>
+        <% last_checkin = checkin.created_at %>
+      <% end %>
     </div>
   </div>
 
   <div class="span3">
+    <div>
+      <h4>
+        <%= icon 'hand-o-down' %>
+        Pomodoro
+      </h4>
+      <div class="pomodoro">
+        <div class="row-fluid">
+          <div class="span8">
+            <%= text_field_tag 'date', Time.now, :class => 'span12' %>
+          </div>
+          <div class="span4">
+            <%= link_to raw("#{icon 'play'} Start"), "#", :class => "btn start timer" %>
+            <%# icon 'pause' %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
     <h4>
       <%= icon :globe %>
       Geocode
     </h4>
     <div id="map-image"></div>
+
+    <hr>
+
+    <div>
+      <%= render 'thoughts/form' %>
+    </div>
+
+    <div class="thoughts">
+    </div>
+
+    <hr>
+
     <%= render "partials/calendar", { :entries => @entries } if @entries %>
   </div>
 </div>
