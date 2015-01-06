@@ -1,16 +1,15 @@
 source 'http://rubygems.org'
 
-gem 'thin'
-gem 'rails', '~> 3.2'
-gem 'mysql2'
-gem 'sqlite3'
-gem 'yaml_db'
-gem 'nokogiri'
-gem 'ruby-trello'
-gem 'jquery-rails'
 gem 'github-markdown', :require => 'github/markdown'
 gem 'gmail'
+gem 'jquery-rails'
+gem 'mysql2'
+gem 'nokogiri'
+gem 'rails', '~> 3.2'
 gem 'ri_cal'
+gem 'ruby-trello'
+gem 'thin'
+gem 'yaml_db'
 
 group :assets do
   gem 'sass-rails'
