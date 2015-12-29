@@ -1,46 +1,46 @@
 <%
-   gmail_keys = Stat.where(:app => "gmail")
+   gmail_keys = Stat.where(app: "gmail")
    @gmail = { }
    gmail_keys.each do |k|
      @gmail[k.key.to_sym] = k.value
    end
 
-   afomi_gmail_keys = Stat.where(:app => "afomi_gmail")
+   afomi_gmail_keys = Stat.where(app: "afomi_gmail")
    @afomi_gmail = { }
    afomi_gmail_keys.each do |k|
      @afomi_gmail[k.key.to_sym] = k.value
    end
 
-   mq_gmail_keys = Stat.where(:app => "mq_gmail")
+   mq_gmail_keys = Stat.where(app: "mq_gmail")
    @mq_gmail = { }
    mq_gmail_keys.each do |k|
      @mq_gmail[k.key.to_sym] = k.value
    end
 
-   trello_keys = Stat.where(:app => "trello_board")
-   @trello_boards = { }
-   trello_keys.each do |k|
-     @trello_boards[k.key.to_sym] = k.value
-   end
+  trello_keys = Stat.where(app: "trello_board")
+  @trello_boards = { }
+  trello_keys.each do |k|
+    @trello_boards[k.key.to_sym] = k.value
+  end
 
-   @trello = {
-           :count       => @trello_boards.collect { |k, v| v.to_i }.sum,
-           :today_count => "7", # placeholders
-           :week_count  => 22
-   }
+  @trello = {
+    count: @trello_boards.collect { |k, v| v.to_i }.sum,
+    today_count: "7", # placeholders
+    week_count: 22
+  }
 
-   google_task_count = Stat.where(:app => "google").first.value
-   @google_tasks = {
-           :count       => google_task_count,
-           :today_count => 0, # Stat.today("google", "task")
-           :week_count  => 22 # Stat.week("google", "task")
-   }
+  google_task_count = Stat.where(app: "google").first.value
+  @google_tasks = {
+    count: google_task_count,
+    today_count: 0, # Stat.today("google", "task")
+    week_count: 22 # Stat.week("google", "task")
+  }
 
-   @phonesnaps = {
-           :count       => "0", # manual counts (in Dropbox)
-           :today_count => "1",
-           :week_count  => 6,
-   }
+  @phonesnaps = {
+    count: "0", # manual counts (in Dropbox)
+    today_count: "1",
+    week_count: 6,
+  }
 %>
 <style>
   .altitude {
