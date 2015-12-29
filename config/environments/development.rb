@@ -5,9 +5,7 @@ Nag::Application.configure do
   # every request.  This slows down response time but is perfect for development
   # since you don't have to restart the webserver when you make code changes.
   config.cache_classes = false
-
-  # Log error messages when you accidentally call methods on nil.
-  config.whiny_nils = true
+  config.eager_load = false
 
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true
@@ -20,6 +18,9 @@ Nag::Application.configure do
   config.active_support.deprecation = :log
 
   # Only use best-standards-support built into browsers
-  config.action_dispatch.best_standards_support = :builtin
-end
+  config.active_record.migration_error = :page_load
 
+  config.assets.debug = true
+  config.assets.digest = true
+  config.assets.raise_runtime_errors = true
+end
