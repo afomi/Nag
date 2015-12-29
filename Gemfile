@@ -2,10 +2,9 @@ source 'https://rubygems.org'
 
 ruby "2.2.3"
 
-gem 'github-markdown', :require => 'github/markdown'
+gem 'github-markdown', require: 'github/markdown'
 gem 'gmail'
 gem 'jquery-rails'
-gem 'mysql2'
 gem 'nokogiri'
 gem 'pg'
 gem 'rails'
