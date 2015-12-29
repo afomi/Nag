@@ -1,6 +1,6 @@
 class CheckinsController < ApplicationController
 
-  before_filter :public, :except => [:just_login, :tags]
+  before_filter :public, except: [:just_login, :tags]
   before_filter :refresh
 
   def index
@@ -18,7 +18,7 @@ class CheckinsController < ApplicationController
 
   def tags
     respond_to do |format|
-      format.json { render :json => parse_tags(Checkin.today) }
+      format.json { render json: parse_tags(Checkin.today) }
     end
   end
 
@@ -37,7 +37,7 @@ class CheckinsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.xml { render :xml => @checkin }
+      format.json { render json: @checkin }
     end
   end
 
@@ -50,7 +50,7 @@ class CheckinsController < ApplicationController
     @checkin = Checkin.new
     # @documents = Document.all(:order => "id")
     # Optionally enable extras by uncommenting the line below
-    extras()
+    # extras
 
     @thought = Thought.new
   end
@@ -60,15 +60,19 @@ class CheckinsController < ApplicationController
   end
 
   def create
-    @checkin = Checkin.new(params[:checkin])
+    @checkin = Checkin.new(params[:checkin].permit(:text, :latitude, :longitude))
 
     respond_to do |format|
       if @checkin.save
-        format.html { redirect_to(new_checkin_path, :notice => 'Checkin was successfully created.') }
+        format.html {
+          redirect_to(new_checkin_path, notice: 'Checkin was successfully created.')
+        }
         format.js
       else
-        format.html { render :action => "new" }
-        format.json { render :json => @checkin.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.json {
+          render json: @checkin.errors, status: :unprocessable_entity
+        }
       end
     end
   end
@@ -81,8 +85,8 @@ class CheckinsController < ApplicationController
         format.html { redirect_to(@checkin, :notice => 'Checkin was successfully updated.') }
         format.xml { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml { render :xml => @checkin.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml { render xml: @checkin.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -105,12 +109,12 @@ class CheckinsController < ApplicationController
 
     @checkins.each do |checkin|
       @simile_formatted_checkins << {
-        :title         => DateTime.parse(checkin["created_at"].to_s).strftime("%b %d at %I:%M %P"),
-        :start         => checkin["created_at"],
-        :description   => checkin["text"],
-        :image         => "",
-        :link          => "",
-        :durationEvent => false
+        title: DateTime.parse(checkin["created_at"].to_s).strftime("%b %d at %I:%M %P"),
+        start: checkin["created_at"],
+        description: checkin["text"],
+        image: "",
+        link: "",
+        durationEvent: false
       }
     end
 
@@ -120,7 +124,7 @@ class CheckinsController < ApplicationController
       'wikiSection'    => @settings[:timeline][:wiki_section],
       "events"         => @simile_formatted_checkins
     }
-    render :json => payload
+    render json: payload
   end
 
 
@@ -164,10 +168,8 @@ class CheckinsController < ApplicationController
     @response = ""
 
     if File.exist?("#{Rails.root}/tmp/#{name}") and (Time.now - 2.days < File.ctime("#{Rails.root}/tmp/#{name}")) and !refresh
-      logger.debug("Fetching local #{name}")
       @response = File.open("#{Rails.root}/tmp/#{name}", "r").read
     else
-      logger.debug("Fetching #{url}")
       @response = open(url).read
       File.open("#{Rails.root}/tmp/#{name}", "w") do |f|
         f << @response
