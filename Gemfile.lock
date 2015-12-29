@@ -1,5 +1,5 @@
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     actionmailer (4.2.2)
       actionpack (= 4.2.2)
@@ -168,3 +168,6 @@ DEPENDENCIES
   thin
   uglifier
   yaml_db
+
+BUNDLED WITH
+   1.11.2
