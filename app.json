@@ -1,0 +1,11 @@
+{
+  "name": "Nag",
+  "description": "a personal microblog",
+  "repository": "https://github.com/afomi/nag",
+  "logo": "https://github.com/afomi/nag/images/logo.png",
+  "keywords": ["ruby", "heroku", "personalblog"],
+  "env": {
+     "SLACK_API_TOKEN": "YOUR-SLACK-TOKEN-HERE",
+     "TRELLO_TOKEN": "YOUR-SLACK-TOKEN-HERE"
+   }
+}
