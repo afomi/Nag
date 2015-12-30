@@ -1,8 +1,8 @@
-<div class="row-fluid">
-  <div class="span12">
+<div class="row">
+  <div class="col-md-12">
     <div class="checkin" style="margin: 0 0 10px 0;">
       <div class="pull-left" style="min-width: 85px;">
-        <span class="label <%= 'label-info' if checkin.created_at > Time.now.beginning_of_day %>" style="margin-right: 10px;">
+        <span class="label <%= checkin.created_at > Time.now.beginning_of_day ? "label-info" : "label-default" %>" style="margin-right: 10px;">
           <%= link_to checkin.created_at.strftime("%I:%M%P"), edit_checkin_path(checkin) %>
           <%= icon :globe if checkin.latitude? %>
         </span>

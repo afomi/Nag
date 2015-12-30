@@ -15,10 +15,11 @@
     <% end %>
 
     <div>
-      <%= f.text_area :text, :rows => 3, :class => "span12", :style => "border: 1px solid #E5E5E5;" -%>
+      <%= f.text_area :text, rows: 3, class: "col-md-12", style: "border: 1px solid #E5E5E5;" -%>
       <div class="clearfix"></div>
-      <%= f.submit :value => "Checkin", :class => "btn btn-mini btn-primary" %>
-      at <span id="timer"></span>
+      <%= f.submit value: "Checkin", class: "btn btn-mini btn-primary" %>
+      at
+      <span id="timer"></span>
       <span class='lat'></span>
       <span class='lng'></span>
     </div>

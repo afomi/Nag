@@ -1,0 +1,57 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">
+        <% if rand(2) == 0 %>
+          <%= icon 'bolt' %>
+        <% elsif rand(2) == 1 %>
+          <%= icon 'flask' %>
+        <% else %>
+          <%= icon 'thumb-tack' %>
+        <% end %>
+        Nag
+      </a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="#">
+            <%= Time.now.strftime("%a - %b %d, %Y") %>
+          </a>
+        </li>
+        <li><a href="#">Link</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <%= link_to raw("#{icon 'search'} Overview"), "#", :id => "show_helper1" %>
+        </li>
+        <li>
+          <%= link_to raw("#{icon 'gears'} Process"), "#", :id => "show_helper2" %>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Options<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/checkins">All Checkins</a></li>
+            <li><a href="/touchpoints">All Touchpoints</a></li>
+            <li><a href="/checkins/data">Latest 100 as .json</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/help">Help</a></li>
+            <li>
+              <a href="http://www.wikisummaries.org/Getting_Things_Done:_The_Art_of_Stress-Free_Productivity#Chapter_5_--_Collection:_Corralling_Your_.22Stuff.22a" target="_blank">GTD
+                Reference</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
