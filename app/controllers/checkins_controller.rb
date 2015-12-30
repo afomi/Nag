@@ -4,11 +4,11 @@ class CheckinsController < ApplicationController
   before_filter :refresh
 
   def index
-    @checkins = Checkin.latest(30)
+    @checkins = Checkin.limit(30).order("created_at DESC")
 
     respond_to do |format|
       format.html
-      format.xml { render :xml => @checkins }
+      format.json { render json: @checkins }
     end
   end
 
@@ -48,9 +48,11 @@ class CheckinsController < ApplicationController
     @latest_checkins = Checkin.latest
 
     @checkin = Checkin.new
-    # @documents = Document.all(:order => "id")
+    # @documents = Document.all(order: "id")
     # Optionally enable extras by uncommenting the line below
     # extras
+
+    @checkins = Checkin.today
 
     @thought = Thought.new
   end
@@ -82,7 +84,7 @@ class CheckinsController < ApplicationController
 
     respond_to do |format|
       if @checkin.update_attributes(params[:checkin])
-        format.html { redirect_to(@checkin, :notice => 'Checkin was successfully updated.') }
+        format.html { redirect_to(@checkin, notice: 'Checkin was successfully updated.') }
         format.xml { head :ok }
       else
         format.html { render action: "edit" }
@@ -160,7 +162,7 @@ class CheckinsController < ApplicationController
   end
 
   # take a filename and url and will download the results and cache it
-  def try_cache(name = "", url = "", options = { :refresh => @refresh, :xml => false })
+  def try_cache(name = "", url = "", options = { refresh: @refresh, xml: false })
     raise ArgumentError if url.empty?
 
     to_xml = options[:xml]

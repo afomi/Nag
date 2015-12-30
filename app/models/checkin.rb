@@ -22,7 +22,7 @@ class Checkin < ActiveRecord::Base
 
   def check_for_habits
     Nokogiri::HTML(self.text).css("habit").each do |habit|
-      Habit.create(:description => habit.text)
+      Habit.create(description: habit.text)
     end
   end
 
