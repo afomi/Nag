@@ -1,18 +1,20 @@
 <h1>Listing Checkins</h1>
 
-<table>
-  <tr>
-    <th>Created at</th>
-    <th>Updated at</th>
-    <th>Project ID</th>
-    <th>Touchpoint ID</th>
-    <th>Text</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<table class="table table-condensed table-striped">
+  <thead>
+    <tr>
+      <th>Created at</th>
+      <th>Updated at</th>
+      <th>Project ID</th>
+      <th>Touchpoint ID</th>
+      <th>Text</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
 
-<% @checkins.each do |checkin| %>
+  <% @checkins.each do |checkin| %>
   <tr>
     <td><%= checkin.created_at %></td>
     <td><%= checkin.updated_at %></td>
@@ -23,7 +25,7 @@
     <td><%= link_to 'Edit', edit_checkin_path(checkin) %></td>
     <td><%= link_to 'Destroy', checkin, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
-<% end %>
+  <% end %>
 </table>
 
 <br />

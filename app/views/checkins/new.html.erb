@@ -5,7 +5,7 @@
 <%= render 'checkins/awaiting' %>
 
 <div class="row">
-  <div class="col-md-9">
+  <div class="col-md-offset-2 col-md-4">
 
     <div class="row">
       <div class="col-md-12">
@@ -28,9 +28,11 @@
       </div>
       <div class="col-md-12">
         <div class="media">
-          <a class="pull-left" href="#">
-            <img class="media-object" alt="64x64" style="width: 64px; height: 64px;" src="/images/avatar.png">
-          </a>
+          <div class="media-left">
+            <a class="pull-left" href="#">
+              <img class="media-object" alt="64x64" style="width: 64px; height: 64px;" src="/images/avatar.png">
+            </a>
+          </div>
 
           <div class="media-body">
             <%= render 'checkins/form' %>
@@ -63,29 +65,28 @@
 
     <hr>
 
-  <% if @checkins.present? %>
+    <% if @checkins.present? %>
     <div class="checkins">
       <% last_checkin = nil %>
       <% @checkins.each do |checkin| %>
-        <%= content_tag(:h5, checkin.created_at.strftime("%B %d"), :style => "text-transform:uppercase;") unless (checkin.created_at.day == (last_checkin.day rescue nil)) %>
-        <%= render 'checkins/one', { checkin: checkin } %>
-        <% last_checkin = checkin.created_at %>
+      <%= content_tag(:h5, checkin.created_at.strftime("%B %d"), style: "text-transform:uppercase;") unless (checkin.created_at.day == (last_checkin.day rescue nil)) %>
+      <%= render 'checkins/one', { checkin: checkin } %>
+      <% last_checkin = checkin.created_at %>
       <% end %>
-      <hr>
     </div>
-  <% end %>
+    <% end %>
 
     <div class="checkins">
       <% last_checkin = nil %>
       <% @latest_checkins.each do |checkin| %>
-        <%= content_tag(:h5, checkin.created_at.strftime("%B %d"), :style => "text-transform:uppercase;") unless (checkin.created_at.day == (last_checkin.day rescue nil)) %>
-        <%= render 'checkins/one', { checkin: checkin } %>
-        <% last_checkin = checkin.created_at %>
+      <%= content_tag(:h5, checkin.created_at.strftime("%B %d"), style: "text-transform:uppercase;") unless (checkin.created_at.day == (last_checkin.day rescue nil)) %>
+      <%= render 'checkins/one', { checkin: checkin } %>
+      <% last_checkin = checkin.created_at %>
       <% end %>
     </div>
   </div>
 
-  <div class="col-md-3">
+  <div class="col-md-4">
     <div>
       <h4>
         <%= icon 'hand-o-down' %>
@@ -94,10 +95,10 @@
       <div class="pomodoro">
         <div class="row">
           <div class="col-md-8">
-            <%= text_field_tag 'date', Time.now, :class => 'span12' %>
+            <%= text_field_tag 'date', Time.now, class: 'form-control' %>
           </div>
           <div class="col-md-4">
-            <%= link_to raw("#{icon 'play'} Start"), "#", :class => "btn start timer" %>
+            <%= link_to raw("#{icon 'play'} Start"), "#", class: "btn btn-default start timer" %>
             <%# icon 'pause' %>
           </div>
         </div>
@@ -123,31 +124,31 @@
 
     <hr>
 
-    <%= render "partials/calendar", { :entries => @entries } if @entries %>
+    <%= render "partials/calendar", { entries: @entries } if @entries %>
   </div>
 </div>
 
 <script>
-  $(function() {
-    $("#extras1").hide();
-    $("#awaiting").hide();
+$(function() {
+  $("#extras1").hide();
+  $("#awaiting").hide();
 
-    $("#show_helper1").click(function () {
-      if ($(this).parent("li").hasClass("active") === true) {
-        $(this).parent("li").removeClass("active");
-      } else {
-        $(this).parent("li").addClass("active");
-      }
-      $("#extras1").toggle();
-    });
-
-    $("#show_helper2").click(function () {
-      if ($(this).parent("li").hasClass("active") === true) {
-        $(this).parent("li").removeClass("active");
-      } else {
-        $(this).parent("li").addClass("active");
-      }
-      $("#awaiting").toggle();
-    });
+  $("#show_helper1").click(function () {
+    if ($(this).parent("li").hasClass("active") === true) {
+      $(this).parent("li").removeClass("active");
+    } else {
+      $(this).parent("li").addClass("active");
+    }
+    $("#extras1").toggle();
   });
+
+  $("#show_helper2").click(function () {
+    if ($(this).parent("li").hasClass("active") === true) {
+      $(this).parent("li").removeClass("active");
+    } else {
+      $(this).parent("li").addClass("active");
+    }
+    $("#awaiting").toggle();
+  });
+});
 </script>

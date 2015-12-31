@@ -15,8 +15,8 @@
     <% end %>
 
     <div>
-      <%= f.text_area :text, rows: 3, class: "col-md-12", style: "border: 1px solid #E5E5E5;" -%>
-      <div class="clearfix"></div>
+      <%= f.text_area :text, rows: 5, class: "form-control", style: "border: 1px solid #E5E5E5;" -%>
+      <br>
       <%= f.submit value: "Checkin", class: "btn btn-mini btn-primary" %>
       at
       <span id="timer"></span>
@@ -43,7 +43,7 @@
       <div class="field ">
         <%= f.label :project_id %>
         <br/>
-        <%= f.text_field :project_id %>
+        <%= f.text_field :project_id, class: "form-control" %>
       </div>
     <% end %>
 
