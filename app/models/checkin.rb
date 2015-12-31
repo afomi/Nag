@@ -2,14 +2,16 @@ class Checkin < ActiveRecord::Base
 
   require 'nokogiri'
 
+  scope :desc, -> { order("created_at DESC") }
+
   before_save :check_for_habits
 
   def self.today
-    Checkin.where("created_at >= ?", Date.today.midnight + 8.hours).order("created_at ASC")
+    Checkin.where("created_at >= ?", Date.today.midnight + 8.hours).desc
   end
 
   def self.latest(n = 10)
-    Checkin.where("created_at < ?", Date.today + 8.hours).order("created_at DESC").limit(n)
+    Checkin.where("created_at < ?", Date.today + 8.hours).desc.limit(n)
   end
 
   def created_at
