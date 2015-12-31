@@ -70,8 +70,10 @@
       <% last_checkin = nil %>
       <% @checkins.each do |checkin| %>
       <%= content_tag(:h5, checkin.created_at.strftime("%B %d"), style: "text-transform:uppercase;") unless (checkin.created_at.day == (last_checkin.day rescue nil)) %>
-      <%= render 'checkins/one', { checkin: checkin } %>
-      <% last_checkin = checkin.created_at %>
+      <div class="body">
+        <%= render 'checkins/one', { checkin: checkin } %>
+        <% last_checkin = checkin.created_at %>
+      </div>
       <% end %>
     </div>
     <% end %>
@@ -80,8 +82,10 @@
       <% last_checkin = nil %>
       <% @latest_checkins.each do |checkin| %>
       <%= content_tag(:h5, checkin.created_at.strftime("%B %d"), style: "text-transform:uppercase;") unless (checkin.created_at.day == (last_checkin.day rescue nil)) %>
-      <%= render 'checkins/one', { checkin: checkin } %>
-      <% last_checkin = checkin.created_at %>
+      <div class="body">
+        <%= render 'checkins/one', { checkin: checkin } %>
+        <% last_checkin = checkin.created_at %>
+      </div>
       <% end %>
     </div>
   </div>
@@ -94,12 +98,17 @@
       </h4>
       <div class="pomodoro">
         <div class="row">
-          <div class="col-md-8">
-            <%= text_field_tag 'date', Time.now, class: 'form-control' %>
+          <div class="col-md-offset-3 col-md-6">
+            <div id="countdown-timer" style="padding: 1em; font-size: 2.5em; text-align: center;"></div>
           </div>
-          <div class="col-md-4">
-            <%= link_to raw("#{icon 'play'} Start"), "#", class: "btn btn-default start timer" %>
-            <%# icon 'pause' %>
+        </div>
+        <div class="row">
+          <div class="col-md-offset-3 col-md-6">
+            <div class="" style="text-align: center;">
+              <%= link_to raw("#{icon 'step-backward'}"), "#", class: "btn btn-default reset timer" %>
+              <%= link_to raw("#{icon 'play'} Start"), "#", class: "btn btn-default start timer" %>
+              <%= link_to raw("#{icon 'stop'}"), "#", class: "btn btn-default stop timer" %>
+            </div>
           </div>
         </div>
       </div>
@@ -150,5 +159,82 @@ $(function() {
     }
     $("#awaiting").toggle();
   });
+});
+
+var pomodoro = {
+  stopClock: true,
+  initialDuration: function() {
+    return moment.duration({
+      "hours": 0,
+      "minutes": 25,
+      "seconds": 0
+    });
+  },
+  initialInterval: function() {
+    return moment.duration({
+      "seconds": 1
+    });
+  },
+  duration: this.initialDuration,
+  drawTimer: function() {
+    var t = moment(duration.asMilliseconds()).format("mm:ss");
+    $("#countdown-timer").text(t);
+  },
+  goTimer: function() {
+    this.stopClock = false;
+    var interval = this.initialInterval();
+
+    var that = this;
+    var loop = setInterval(function() {
+      // escape out of this loop if stopClock is set
+      if (that.stopClock === true) {
+        clearInterval(loop);
+        return false;
+      }
+
+      var t = duration.asSeconds();
+      if(t <= 0) {
+        stopTimer();
+        alert("Time's Up");
+        clearInterval(loop);
+        return false;
+      }
+
+      duration = duration.subtract(interval);
+      that.drawTimer();
+
+    }, interval.asMilliseconds());
+  },
+  stopTimer: function() {
+    this.stopClock = true;
+  },
+  resetTimer: function() {
+    this.stopTimer();
+    // reset duration
+    duration = this.initialDuration();
+    this.drawTimer();
+  }
+};
+
+$(function() {
+
+  // Specify the behaviors
+  // for the Timer's buttons
+  $(".start.timer").click(function() {
+    pomodoro.stopTimer();
+    pomodoro.goTimer();
+  });
+
+  $(".stop.timer").click(function() {
+    pomodoro.stopTimer();
+  });
+
+  $(".reset.timer").click(function() {
+    pomodoro.resetTimer();
+  });
+
+  // Initially Set the Timer
+  // resetTimer();
+  pomodoro.resetTimer()
 });
 </script>

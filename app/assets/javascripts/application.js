@@ -5,6 +5,7 @@
 //= require Selection-1.0
 //= require jquery.autosize
 //= require strftime-1.3
+//= require moment
 //= require bootstrap
 
 // Helper Methods
