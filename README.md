@@ -21,11 +21,15 @@ Every 25 minutes, ask me what I've been doing since whatever I was doing since l
 
 ## Setup
 
-* git clone https://github.com/afomi/Nag.git nag
-* cd nag
-* bundle install
+* `git clone https://github.com/afomi/Nag.git nag`
+* `cd nag`
+* `bundle install`
 * update /database.yml
 * specify custom settings to /config/settings.rb
+
+## Deployment
+
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/afomi/nag)
 
 Optionally, enable google calendar feed
 
@@ -35,4 +39,4 @@ Optionally, enable google calendar feed
 
 #### Author
 
-* Ryan Wold, [afomi.com](http://afomi.com)
+* Ryan Wold, [afomi.com](https://www.afomi.com)
