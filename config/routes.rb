@@ -17,5 +17,15 @@ Nag::Application.routes.draw do
   resources :checkins
   resources :touchpoints
 
+  namespace :api do
+    namespace :v1 do
+      resource :checkins do
+        member do
+          post :new_from_foursquare
+        end
+      end
+    end
+  end
+
   root to: "checkins#new"
 end
