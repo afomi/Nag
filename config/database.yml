@@ -1,12 +1,14 @@
+default: &default
+  adapter: postgresql
+  encoding: utf8
+
 development:
-  host: <%= ENV['DB_HOST'] %>
-  adapter: mysql2
+  <<: *default
   database: <%= ENV['DB_NAME'] %>
   username: <%= ENV['DB_USER'] %>
   password: <%= ENV['DB_PASS'] %>
-  encoding: utf8
-  reconnect: false
-  pool: 5
+  host: <%= ENV['DB_HOST'] %>
+  port: 5432
 
 test:
   adapter: sqlite3
