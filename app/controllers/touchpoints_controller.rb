@@ -1,6 +1,4 @@
 class TouchpointsController < ApplicationController
-  # GET /touchpoints
-  # GET /touchpoints.xml
 
   before_filter :log_session
 
@@ -12,40 +10,33 @@ class TouchpointsController < ApplicationController
     @touchpoints = Touchpoint.all
 
     respond_to do |format|
-      format.html # index.html.erb
-      format.xml { render :xml => @touchpoints }
+      format.html
+      format.json { render json: @touchpoints }
     end
   end
 
-  # GET /touchpoints/1
-  # GET /touchpoints/1.xml
   def show
     @touchpoint = Touchpoint.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
-      format.xml { render :xml => @touchpoint }
+      format.html
+      format.json { render json: @touchpoint }
     end
   end
 
-  # GET /touchpoints/new
-  # GET /touchpoints/new.xml
   def new
     @touchpoint = Touchpoint.new
 
     respond_to do |format|
-      format.html # new.html.erb
-      format.xml { render :xml => @touchpoint }
+      format.html
+      format.json { render json: @touchpoint }
     end
   end
 
-  # GET /touchpoints/1/edit
   def edit
     @touchpoint = Touchpoint.find(params[:id])
   end
 
-  # POST /touchpoints
-  # POST /touchpoints.xml
   def create
     @touchpoint = Touchpoint.new(params[:touchpoint])
     puts @touchpoint.inspect
